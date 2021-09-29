@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Valeria Khristinina](https://up.htmlacademy.ru/react/8/user/1791339).
-* Наставник: `Неизвестно`.
+* Наставник: [Кристина Жиделягина](https://htmlacademy.ru/profile/id575159).
 
 ---
 

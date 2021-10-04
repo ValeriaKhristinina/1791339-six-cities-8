@@ -1,4 +1,8 @@
 import MainPage from '../main-page/main-page';
+// import LoginPage from '../login-page/login-page';
+// import FavoritesPage from '../favorites-page/favorites-page';
+// import RoomPage from '../room-page/room-page';
+
 
 type AppProps = {
   rentsCount: number;
@@ -6,7 +10,12 @@ type AppProps = {
 
 function App({rentsCount}: AppProps): JSX.Element {
   return (
-    <MainPage rentsCount= {rentsCount}/>
+    <div>
+      {/* <LoginPage/>
+      <FavoritesPage/>
+      <RoomPage/> */}
+      <MainPage rentsCount= {rentsCount}/>
+    </div>
   );
 }
 

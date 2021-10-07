@@ -1,5 +1,6 @@
 import { Switch, Route, BrowserRouter} from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import PrivateRoute from '../private-route/private-route';
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
@@ -23,9 +24,13 @@ function App({rentsCount}: AppProps): JSX.Element {
           <LoginPage />
         </Route>
 
-        <Route exact path={AppRoute.Favorites}>
-          <FavoritesPage />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.Favorites}
+          render= {()=> <FavoritesPage />}
+          autorisationStatus={AuthorizationStatus.NoAuth}
+        >
+        </PrivateRoute>
 
         <Route exact path={AppRoute.Room}>
           <RoomPage />

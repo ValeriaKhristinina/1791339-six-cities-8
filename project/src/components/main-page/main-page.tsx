@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Card from '../card/card';
+import {Offers} from '../../types/offer';
 
 type MainPageProps= {
   rentsCount: number;
+  offers: Offers;
 }
 
-function MainPage({rentsCount}: MainPageProps): JSX.Element {
+function MainPage({rentsCount, offers}: MainPageProps): JSX.Element {
   return (
     <div>
       <div style={{display: 'none'}}>
@@ -100,11 +102,7 @@ function MainPage({rentsCount}: MainPageProps): JSX.Element {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <Card/>
-                  <Card/>
-                  <Card/>
-                  <Card/>
-                  <Card/>
+                  {offers.map((offer) => <Card offer={offer} key={offer.id} />)}
                 </div>
               </section>
               <div className="cities__right-section">

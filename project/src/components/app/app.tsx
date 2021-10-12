@@ -6,18 +6,23 @@ import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
 import ErrorPage from '../error-page/error-page';
+import {Offers} from '../../types/offer';
 
 
 type AppProps = {
   rentsCount: number;
+  offers: Offers;
 }
 
-function App({rentsCount}: AppProps): JSX.Element {
+function App({rentsCount, offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path= {AppRoute.Root}>
-          <MainPage rentsCount= {rentsCount}/>
+          <MainPage
+            rentsCount={rentsCount}
+            offers={offers}
+          />
         </Route>
 
         <Route exact path={AppRoute.Login}>

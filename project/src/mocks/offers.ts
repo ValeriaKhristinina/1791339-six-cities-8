@@ -22,7 +22,7 @@ export const offers: Offer[] = [
     },
     id: 1,
     images: ['img/1.png', 'img/2.png'],
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     location: {
       latitude: 52.35514938496378,
@@ -31,8 +31,8 @@ export const offers: Offer[] = [
     },
     maxAdults: 4,
     previewImage: 'img/1.png',
-    price: 120,
-    rating: 4.8,
+    price: 10,
+    rating: 2.8,
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
 
@@ -66,10 +66,10 @@ export const offers: Offer[] = [
     },
     maxAdults: 4,
     previewImage: 'img/1.png',
-    price: 120,
-    rating: 4.8,
+    price: 1567,
+    rating: 5.0,
     title: 'Beautiful & luxurious studio at great location',
-    type: 'apartment',
+    type: 'Hotel',
 
   },
   {
@@ -102,7 +102,7 @@ export const offers: Offer[] = [
     maxAdults: 4,
     previewImage: 'img/1.png',
     price: 120,
-    rating: 4.8,
+    rating: 2.8,
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
 
@@ -127,7 +127,7 @@ export const offers: Offer[] = [
     },
     id: 6,
     images: ['img/1.png', 'img/2.png'],
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     location: {
       latitude: 52.35514938496378,
@@ -136,8 +136,8 @@ export const offers: Offer[] = [
     },
     maxAdults: 4,
     previewImage: 'img/1.png',
-    price: 120,
-    rating: 4.8,
+    price: 20,
+    rating: 1.8,
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
 

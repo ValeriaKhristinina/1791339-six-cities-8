@@ -3,13 +3,14 @@ import { Offer } from '../../types/offer';
 
 type CardProps= {
   offer: Offer;
+  onMouseEnter:() => void;
 }
 
-function Card({offer}: CardProps): JSX.Element {
+function Card({offer, onMouseEnter}: CardProps): JSX.Element {
   const {price, rating, title, type, isFavorite} = offer;
   const widthRating = `${(100 * rating)/5.0}%`;
   return (
-    <article className="cities__place-card place-card">
+    <article onMouseEnter={onMouseEnter} className="cities__place-card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt=""/>

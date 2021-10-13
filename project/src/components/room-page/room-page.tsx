@@ -1,16 +1,17 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offer';
-import {widthRating} from '../../utils';
+import { widthRating } from '../../utils';
+import CommentForm from '../comment-form//comment-form';
 
 type RoomPageProps = {
   offers: Offers,
 }
 
-function RoomPage({offers}: RoomPageProps): JSX.Element {
-  const { id } = useParams<{id: string}>();
-  const ourOffer= offers.find((offer) => {
+function RoomPage({ offers }: RoomPageProps): JSX.Element {
+  const { id } = useParams<{ id: string }>();
+  const ourOffer = offers.find((offer) => {
     if (offer.id === Number(id)) {
       return true;
     }
@@ -20,14 +21,14 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
   if (!ourOffer) {
     return <div></div>;
   }
-  const {images, rating, type, bedrooms, maxAdults, price, goods, host, description} = ourOffer;
+  const { images, rating, type, bedrooms, maxAdults, price, goods, host, description } = ourOffer;
 
   return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            { images.map((image: string | undefined) => (
+            {images.map((image: string | undefined) => (
               <div className="property__image-wrapper">
                 <img className="property__image" src={image} alt="" />
               </div>
@@ -36,8 +37,8 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            { ourOffer?.isPremium && (
-              <div  className="property__mark">
+            {ourOffer?.isPremium && (
+              <div className="property__mark">
                 <span>Premium</span>
               </div>)}
             <div className="property__name-wrapper">
@@ -53,7 +54,7 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: widthRating(rating)}}></span>
+                <span style={{ width: widthRating(rating) }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="property__rating-value rating__value">{rating}</span>
@@ -66,7 +67,7 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
                 {bedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
-                  Max {maxAdults} adults
+                Max {maxAdults} adults
               </li>
             </ul>
             <div className="property__price">
@@ -113,23 +114,24 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
                       <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
                     </div>
                     <span className="reviews__user-name">
-                        Max
+                      Max
                     </span>
                   </div>
                   <div className="reviews__info">
                     <div className="reviews__rating rating">
                       <div className="reviews__stars rating__stars">
-                        <span style={{width: '80%'}}></span>
+                        <span style={{ width: '80%' }}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
                     <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
                     </p>
                     <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
                   </div>
                 </li>
               </ul>
+              <CommentForm />
             </section>
           </div>
         </div>
@@ -160,7 +162,7 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={{width: '80%'}}></span>
+                    <span style={{ width: '80%' }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
@@ -192,7 +194,7 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={{width: '80%'}}></span>
+                    <span style={{ width: '80%' }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>
@@ -224,7 +226,7 @@ function RoomPage({offers}: RoomPageProps): JSX.Element {
                 </div>
                 <div className="place-card__rating rating">
                   <div className="place-card__stars rating__stars">
-                    <span style={{width: '100%'}}></span>
+                    <span style={{ width: '100%' }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                 </div>

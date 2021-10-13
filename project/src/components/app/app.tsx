@@ -8,13 +8,13 @@ import RoomPage from '../room-page/room-page';
 import ErrorPage from '../error-page/error-page';
 import {Offers} from '../../types/offer';
 
-
 type AppProps = {
   rentsCount: number;
   offers: Offers;
+  favoritesOffers: Offers;
 }
 
-function App({rentsCount, offers}: AppProps): JSX.Element {
+function App({rentsCount, offers, favoritesOffers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
@@ -32,13 +32,13 @@ function App({rentsCount, offers}: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          render= {()=> <FavoritesPage />}
-          autorisationStatus={AuthorizationStatus.NoAuth}
+          render= {()=> <FavoritesPage offers={favoritesOffers}/>}
+          autorisationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
 
         <Route exact path={AppRoute.Room}>
-          <RoomPage />
+          <RoomPage offers={offers}/>
         </Route>
 
         <Route>

@@ -1,20 +1,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import {widthRating} from '../../utils';
 
 type CardProps= {
   offer: Offer;
   onMouseEnter:() => void;
+  isFavoritesPage: boolean
 }
 
-function Card({offer, onMouseEnter}: CardProps): JSX.Element {
+function Card({offer, onMouseEnter, isFavoritesPage}: CardProps): JSX.Element {
   const {price, rating, title, type, isFavorite} = offer;
-  const widthRating = `${(100 * rating)/5.0}%`;
+  const cardPath = `/offer/${offer.id}`;
   return (
-    <article onMouseEnter={onMouseEnter} className="cities__place-card place-card">
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt=""/>
-        </a>
+    <article onMouseEnter={onMouseEnter} className={`place-card ${ isFavoritesPage ? 'favorites__card' : 'cities__place-card '}`}>
+      {offer.isPremium && (
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>
+      )}
+      <div className={`place-card__image-wrapper ${isFavoritesPage ? 'favorites__image-wrapper' : 'cities__image-wrapper' }`}>
+        <Link to={cardPath}>
+          <img className="place-card__image" src={offer.images[0]} width="260" height="200" alt=""/>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -31,12 +39,12 @@ function Card({offer, onMouseEnter}: CardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: widthRating}}></span>
+            <span style={{width: widthRating(rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={cardPath}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

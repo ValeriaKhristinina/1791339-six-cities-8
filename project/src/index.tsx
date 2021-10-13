@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {offers} from './mocks/offers';
+import {offers, favoritesOffers} from './mocks/offers';
 
 
 const Setting = {
@@ -13,6 +13,7 @@ ReactDOM.render(
     <App
       rentsCount = {Setting.RENTS_COUNT}
       offers = {offers}
+      favoritesOffers = {favoritesOffers}
     />
   </React.StrictMode>,
   document.getElementById('root'));

@@ -36,15 +36,17 @@ function Map({ mapCenter, points, selectedOffer }: MapProps): JSX.Element {
       points.forEach((point) => {
         leaflet
           .marker({
-            lat: point.city.location.latitude,
-            lng: point.city.location.longitude,
+            lat: point.location.latitude,
+            lng: point.location.longitude,
           }, {
-            icon: defaultCustomIcon,
+            icon: (selectedOffer !== undefined && point.title === selectedOffer.title)
+              ? activeCustomIcon
+              : defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [map, points, defaultCustomIcon]);
+  }, [map, points, defaultCustomIcon, activeCustomIcon, selectedOffer]);
 
   return (
     <section

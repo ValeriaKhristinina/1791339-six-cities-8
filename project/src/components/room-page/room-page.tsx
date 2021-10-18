@@ -2,14 +2,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Offers } from '../../types/offer';
+import { Offers, Offer } from '../../types/offer';
 import { widthRating } from '../../utils';
 import Reviews from '../reviews/reviews';
 import { reviews } from '../../mocks/reviews';
 import Map from '../map/map';
 import { MAP_CENTER } from '../../const';
-import { Offer } from '../../types/offer';
-import Card from '../card/card';
+
+import NearbyOffers from '../nearby-offers/nearby-offers';
 
 type RoomPageProps = {
   offers: Offers,
@@ -17,7 +17,7 @@ type RoomPageProps = {
 
 function RoomPage({ offers }: RoomPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
-  const [, setActiveOffer] = useState(offers[0].id);
+
   const onCardHover = (offerId: number) => {
     const currentOffer = offers.find((offer) =>
       offer.id === offerId,
@@ -133,28 +133,11 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
         />
       </section>
       <div className="container">
-        <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            {
-              offers.map(
-                (offer) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <Card
-                    offer={offer}
-                    onMouseEnter={() => {
-                      setActiveOffer(offer.id);
-                      if (onCardHover) {
-                        onCardHover(offer.id);
-                      }
-                    }}
-                    isFavoritesPage={false}
-                  />
-                ))
-            }
-
-          </div>
-        </section>
+        <NearbyOffers
+          offers={offers}
+          onCardHover={onCardHover}
+          isFavoritesPage={false}
+        />
       </div>
     </main>
   );

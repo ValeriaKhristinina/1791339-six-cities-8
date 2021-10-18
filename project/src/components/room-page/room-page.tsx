@@ -9,7 +9,7 @@ import { reviews } from '../../mocks/reviews';
 import Map from '../map/map';
 import { MAP_CENTER } from '../../const';
 
-import NearbyOffers from '../nearby-offers/nearby-offers';
+import OffersList from '../offers-list/offers-list';
 
 type RoomPageProps = {
   offers: Offers,
@@ -133,11 +133,14 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
         />
       </section>
       <div className="container">
-        <NearbyOffers
-          offers={offers}
-          onCardHover={onCardHover}
-          isFavoritesPage={false}
-        />
+        <section className="near-places places">
+          <h2 className="near-places__title">Other places in the neighbourhood</h2>
+          <OffersList
+            offers={offers}
+            onCardHover={onCardHover}
+            isFavoritesPage={false}
+          />
+        </section>
       </div>
     </main>
   );

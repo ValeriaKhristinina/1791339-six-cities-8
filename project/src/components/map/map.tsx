@@ -12,9 +12,10 @@ type MapProps = {
   mapCenter: MapCenter;
   points: Offers;
   selectedOffer?: Offer;
+  setAdditionalClass: string;
 }
 
-function Map({ mapCenter, points, selectedOffer }: MapProps): JSX.Element {
+function Map({ setAdditionalClass, mapCenter, points, selectedOffer }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, mapCenter);
 
@@ -50,7 +51,7 @@ function Map({ mapCenter, points, selectedOffer }: MapProps): JSX.Element {
 
   return (
     <section
-      className="cities__map map"
+      className={`${setAdditionalClass} map`}
       ref={mapRef}
 
     >

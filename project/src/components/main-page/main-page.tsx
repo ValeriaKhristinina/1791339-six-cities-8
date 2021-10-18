@@ -125,6 +125,7 @@ function MainPage({ rentsCount, offers }: MainPageProps): JSX.Element {
               </section>
               <div className="cities__right-section">
                 <Map
+                  setAdditionalClass={'cities__map'}
                   mapCenter={MAP_CENTER}
                   points={offers}
                   selectedOffer={selectedOffer}

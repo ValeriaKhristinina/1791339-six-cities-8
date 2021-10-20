@@ -6,7 +6,6 @@ type OffersListProps = {
   offers: Offers;
   isFavoritesPage: boolean;
   onCardHover?: (id: number) => void;
-
 }
 
 function OffersList({ offers, isFavoritesPage, onCardHover }: OffersListProps): JSX.Element {

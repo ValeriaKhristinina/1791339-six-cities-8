@@ -1,10 +1,15 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import OffersList from '../offers-list/offers-list';
 import { Offers, Offer } from '../../types/offer';
-import Map from '../map//map';
-import { MAP_CENTER } from '../../const';
+import { Actions } from '../../types/action';
+import Map from '../map/map';
+import { MAP_CENTER, citiesList } from '../../const';
+import CityList from '../city-list/city-list';
 
 
 type MainPageProps = {
@@ -12,8 +17,13 @@ type MainPageProps = {
   offers: Offers;
 }
 
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators;
+
+const connector = connect(null, mapDispatchToProps);
+
 function MainPage({ rentsCount, offers }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
+  const [selectedCity, setSelectedCity] = useState(citiesList[3]);
 
   const onCardHover = (offerId: number) => {
     const currentOffer = offers.find((offer) =>
@@ -63,38 +73,7 @@ function MainPage({ rentsCount, offers }: MainPageProps): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <ul className="locations__list tabs__list">
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Paris</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Cologne</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Brussels</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
-                    <span>Amsterdam</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Hamburg</span>
-                  </a>
-                </li>
-                <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
-                    <span>Dusseldorf</span>
-                  </a>
-                </li>
-              </ul>
+              <CityList cityList={citiesList} selectedCity={selectedCity} setSelectedCity={setSelectedCity} />
             </section>
           </div>
           <div className="cities">

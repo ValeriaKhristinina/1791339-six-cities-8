@@ -11,6 +11,8 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const citiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
 export const MAP_CENTER = {
   title: 'Amsterdam',
   lat: 52.3779562,

@@ -9,20 +9,16 @@ import ErrorPage from '../error-page/error-page';
 import { Offers } from '../../types/offer';
 
 type AppProps = {
-  rentsCount: number;
-  offers: Offers;
+  offers: Offers,
   favoritesOffers: Offers;
 }
 
-function App({ rentsCount, offers, favoritesOffers }: AppProps): JSX.Element {
+function App({ offers, favoritesOffers }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Root}>
-          <MainPage
-            rentsCount={rentsCount}
-            offers={offers}
-          />
+          <MainPage />
         </Route>
 
         <Route exact path={AppRoute.Login}>

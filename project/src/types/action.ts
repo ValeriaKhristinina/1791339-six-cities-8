@@ -6,13 +6,13 @@ export enum ActionType {
 }
 
 export type ChangeCityAction = {
-  type: ActionType.ChangeCity
-  payload: string
+  type: ActionType.ChangeCity;
+  payload: string;
 }
 
 export type AddOffersAction = {
-  type: ActionType.AddOffers
-  payload: Offers
+  type: ActionType.AddOffers;
+  payload: Offers;
 }
 
 export type Actions = ChangeCityAction | AddOffersAction;

@@ -8,17 +8,12 @@ import { offers, favoritesOffers } from './mocks/offers';
 import { reducer } from './store/reducer';
 
 
-const Setting = {
-  RENTS_COUNT: 5,
-};
-
 const store = createStore(reducer, composeWithDevTools());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App
-        rentsCount={Setting.RENTS_COUNT}
         offers={offers}
         favoritesOffers={favoritesOffers}
       />

@@ -1,6 +1,7 @@
-/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
@@ -16,6 +17,7 @@ type MapProps = {
 }
 
 function Map({ setAdditionalClass, mapCenter, points, selectedOffer }: MapProps): JSX.Element {
+  const [markers, setMarkers] = useState<any[]>([]);
   const mapRef = useRef(null);
   const map = useMap(mapRef, mapCenter);
 
@@ -30,24 +32,30 @@ function Map({ setAdditionalClass, mapCenter, points, selectedOffer }: MapProps)
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
-  console.log(map, activeCustomIcon);
 
   useEffect(() => {
     if (map) {
-      points.forEach((point) => {
-        leaflet
-          .marker({
-            lat: point.location.latitude,
-            lng: point.location.longitude,
-          }, {
-            icon: (selectedOffer !== undefined && point.title === selectedOffer.title)
-              ? activeCustomIcon
-              : defaultCustomIcon,
-          })
-          .addTo(map);
+      markers.forEach((marker: any) => {
+        marker.remove();
       });
+      setMarkers([]);
+
+      const arrMarkers: any = [];
+      points.forEach((point) => {
+        const marker = leaflet.marker({
+          lat: point.location.latitude,
+          lng: point.location.longitude,
+        }, {
+          icon: (selectedOffer !== undefined && point.title === selectedOffer.title)
+            ? activeCustomIcon
+            : defaultCustomIcon,
+        });
+        arrMarkers.push(marker);
+        marker.addTo(map);
+      });
+      setMarkers(arrMarkers);
     }
-  }, [map, points, defaultCustomIcon, activeCustomIcon, selectedOffer]);
+  }, [map, points, selectedOffer]);
 
   return (
     <section

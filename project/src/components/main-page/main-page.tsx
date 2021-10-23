@@ -5,25 +5,31 @@ import { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import OffersList from '../offers-list/offers-list';
-import { Offers, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { Actions } from '../../types/action';
 import Map from '../map/map';
-import { MAP_CENTER, citiesList } from '../../const';
+import { MAP_CENTER, citiesList, DEFAULT_CITY } from '../../const';
 import CityList from '../city-list/city-list';
+import { State } from '../../types/state';
+import { changeCity } from '../../store/action';
+
+const mapStateToProps = (state: State) => ({
+  city: state.city,
+  offers: state.offers.filter((offer) => offer.city.name === state.city),
+});
 
 
-type MainPageProps = {
-  rentsCount: number;
-  offers: Offers;
-}
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onChangeCity(city: string) {
+    dispatch(changeCity(city));
+  },
+});
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators;
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-const connector = connect(null, mapDispatchToProps);
-
-function MainPage({ rentsCount, offers }: MainPageProps): JSX.Element {
+function MainPage({ offers, city, onChangeCity }: PropsFromRedux): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
-  const [selectedCity, setSelectedCity] = useState(citiesList[3]);
 
   const onCardHover = (offerId: number) => {
     const currentOffer = offers.find((offer) =>
@@ -73,14 +79,14 @@ function MainPage({ rentsCount, offers }: MainPageProps): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <CityList cityList={citiesList} selectedCity={selectedCity} setSelectedCity={setSelectedCity} />
+              <CityList cityList={citiesList} selectedCity={city} setSelectedCity={onChangeCity} />
             </section>
           </div>
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{rentsCount} places to stay in Amsterdam</b>
+                <b className="places__found">{offers.length} places to stay in {city}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={0}>
@@ -117,5 +123,5 @@ function MainPage({ rentsCount, offers }: MainPageProps): JSX.Element {
     </div>
   );
 }
-
-export default MainPage;
+// export { MainPage };
+export default connector(MainPage);

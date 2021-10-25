@@ -11,6 +11,8 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const citiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
 export const MAP_CENTER = {
   title: 'Amsterdam',
   lat: 52.3779562,
@@ -21,3 +23,5 @@ export const MAP_CENTER = {
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
 
 export const URL_MARKER_ACTIVE = '/img/pin-active.svg';
+
+export const DEFAULT_CITY = citiesList[0];

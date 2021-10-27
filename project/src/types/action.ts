@@ -1,18 +1,10 @@
-import { Offers } from './offer';
+import {changeCity , addOffers, requireAuthorization, requireLogout} from '../store/action';
 
 export enum ActionType {
   ChangeCity = 'city/changeCity',
-  AddOffers = 'offers/addOffers',
+  AddOffers = 'data/addOffers',
+  RequireAuthorization = 'user/requireAuthorization',
+  RequireLogout = 'user/requireLogout',
 }
 
-export type ChangeCityAction = {
-  type: ActionType.ChangeCity;
-  payload: string;
-}
-
-export type AddOffersAction = {
-  type: ActionType.AddOffers;
-  payload: Offers;
-}
-
-export type Actions = ChangeCityAction | AddOffersAction;
+export type Actions = ReturnType<typeof changeCity> | ReturnType<typeof addOffers> | ReturnType<typeof requireAuthorization> | ReturnType<typeof requireLogout>;

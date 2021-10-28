@@ -7,9 +7,9 @@ import { widthRating } from '../../utils';
 import Reviews from '../reviews/reviews';
 import { reviews } from '../../mocks/reviews';
 import Map from '../map/map';
-import { MAP_CENTER } from '../../const';
 
 import OffersList from '../offers-list/offers-list';
+import { findMapCenter } from '../../const';
 
 type RoomPageProps = {
   offers: Offers,
@@ -38,7 +38,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
   if (!ourOffer) {
     return <div></div>;
   }
-  const { images, rating, type, bedrooms, maxAdults, price, goods, host, description } = ourOffer;
+  const { images, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = ourOffer;
 
   return (
     <main className="page__main page__main--property">
@@ -127,7 +127,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
         </div>
         <Map
           setAdditionalClass={'property__map'}
-          mapCenter={MAP_CENTER}
+          mapCenter={findMapCenter(city.name)}
           points={offers}
           selectedOffer={selectedOffer}
         />

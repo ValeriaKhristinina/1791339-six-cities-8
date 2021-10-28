@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // import { useState } from 'react';
-// import { citiesList } from '../../const';
+
+import { City } from '../../types/offer';
 
 type CityListProps = {
-  cityList: string[],
+  cityList: City[],
   selectedCity: string,
   setSelectedCity: (city: string) => void,
 }
@@ -14,10 +15,10 @@ function CityList({ cityList, selectedCity, setSelectedCity }: CityListProps): J
   return (
     <ul className="locations__list tabs__list">
       {
-        cityList.map((cityName) => (
+        cityList.map((city) => (
           <li className="locations__item">
-            <a onClick={() => { setSelectedCity(cityName); }} className={`locations__item-link tabs__item ${selectedCity === cityName ? 'tabs__item--active' : ''}`} href="#">
-              <span>{cityName}</span>
+            <a onClick={() => { setSelectedCity(city.name); }} className={`locations__item-link tabs__item ${selectedCity === city.name ? 'tabs__item--active' : ''}`} href="#">
+              <span>{city.name}</span>
             </a>
           </li>
         ))

@@ -6,6 +6,7 @@ const initialState = {
   city: DEFAULT_CITY,
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
+  isDataLoaded: false,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -14,11 +15,19 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, city: action.payload};
 
     case ActionType.AddOffers: {
-      return {...state, offers: action.payload};
+      return {
+        ...state,
+        offers: action.payload,
+        isDataLoaded: true,
+      };
     }
 
     case ActionType.RequireAuthorization:
-      return {...state, authorizationStatus: action.payload};
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+        isDataLoaded: true,
+      };
 
     case ActionType.RequireLogout:
       return {...state, authorizationStatus: AuthorizationStatus.NoAuth};

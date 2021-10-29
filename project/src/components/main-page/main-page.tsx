@@ -8,7 +8,7 @@ import OffersList from '../offers-list/offers-list';
 import { Offer } from '../../types/offer';
 import { Actions } from '../../types/action';
 import Map from '../map/map';
-import { MAP_CENTER, citiesList, DEFAULT_CITY } from '../../const';
+import { CITIES, findMapCenter } from '../../const';
 import CityList from '../city-list/city-list';
 import { State } from '../../types/state';
 import { changeCity } from '../../store/action';
@@ -79,7 +79,7 @@ function MainPage({ offers, city, onChangeCity }: PropsFromRedux): JSX.Element {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <CityList cityList={citiesList} selectedCity={city} setSelectedCity={onChangeCity} />
+              <CityList cityList={CITIES} selectedCity={city} setSelectedCity={onChangeCity} />
             </section>
           </div>
           <div className="cities">
@@ -95,7 +95,8 @@ function MainPage({ offers, city, onChangeCity }: PropsFromRedux): JSX.Element {
                       <use xlinkHref="#icon-arrow-select"></use>
                     </svg>
                   </span>
-                  <ul className="places__options places__options--custom places__options--opened">
+                  {/* Add "open" list class "places__options--opened" */}
+                  <ul className="places__options places__options--custom">
                     <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                     <li className="places__option" tabIndex={0}>Price: low to high</li>
                     <li className="places__option" tabIndex={0}>Price: high to low</li>
@@ -111,7 +112,7 @@ function MainPage({ offers, city, onChangeCity }: PropsFromRedux): JSX.Element {
               <div className="cities__right-section">
                 <Map
                   setAdditionalClass={'cities__map'}
-                  mapCenter={MAP_CENTER}
+                  mapCenter={findMapCenter(city)}
                   points={offers}
                   selectedOffer={selectedOffer}
                 />
@@ -123,5 +124,5 @@ function MainPage({ offers, city, onChangeCity }: PropsFromRedux): JSX.Element {
     </div>
   );
 }
-// export { MainPage };
+export { MainPage };
 export default connector(MainPage);

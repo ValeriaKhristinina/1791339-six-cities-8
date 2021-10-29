@@ -1,0 +1,22 @@
+@keyframes dissapear {
+  from {color: black;}
+  to {color: transparent;}
+}
+
+.loading-page{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: dissapear;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.loading-page h1 {
+  font-size: 48px;
+  font-weight: 500;
+}
+
+
+

@@ -9,10 +9,10 @@ function useMap(mapRef, mapCenter) {
     if (mapRef.current !== null && map === null) {
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: mapCenter.lat,
-          lng: mapCenter.lng,
+          lat: mapCenter.location.latitude,
+          lng: mapCenter.location.longitude,
         },
-        zoom: mapCenter.zoom,
+        zoom: mapCenter.location.zoom,
       });
 
       leaflet

@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, isCheckedAuth } from '../../const';
+import { AppRoute, isCheckedAuth } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import MainPage from '../main-page/main-page';
 import FavoritesPage from '../favorites-page/favorites-page';
@@ -45,7 +45,6 @@ function App(props: PropsFromRedux): JSX.Element {
           exact
           path={AppRoute.Favorites}
           render={() => <FavoritesPage offers={favoritesOffers} />}
-          autorisationStatus={AuthorizationStatus.Auth}
         >
         </PrivateRoute>
 

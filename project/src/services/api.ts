@@ -10,6 +10,7 @@ enum HttpCode {
 
 type UnauthorizedCallback = () => void;
 
+// createAPI принимает колбэк который будет вызываться, если мы не автризованы
 export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,

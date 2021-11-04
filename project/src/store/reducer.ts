@@ -22,15 +22,19 @@ const reducer = (state: State = initialState, action: Actions): State => {
       };
     }
 
-    case ActionType.RequireAuthorization:
+    case ActionType.RequireAutorisation: {
       return {
         ...state,
         authorizationStatus: action.payload,
         isDataLoaded: true,
       };
+    }
 
     case ActionType.RequireLogout:
-      return {...state, authorizationStatus: AuthorizationStatus.NoAuth};
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NoAuth,
+      };
 
     default:
       return state;

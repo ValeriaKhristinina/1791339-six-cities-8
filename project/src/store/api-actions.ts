@@ -1,10 +1,9 @@
 import {ThunkActionResult} from '../types/action';
 import { Offer } from '../types/offer';
-import { APIRoute } from '../const';
-import { addOffers } from './action';
-// import { saveToken, Token } from '../services/token';
-
-// const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться';
+import { AuthData } from '../types/auth-data';
+import { APIRoute , AuthorizationStatus } from '../const';
+import { addOffers, requireAuthorisation, requireLogout } from './action';
+import { dropToken, saveToken, Token } from '../services/token';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
@@ -12,32 +11,26 @@ export const fetchOffersAction = (): ThunkActionResult =>
     dispatch(addOffers(data));
   };
 
-// export const checkAuthAction = (): ThunkActionResult =>
-//   async (dispatch, _getState, api) => {
-//     try {
-//       await api.get(APIRoute.Login);
-//       dispatch(requireAuthorization(AuthorizationStatus.Auth));
-//     } catch {
-//       toast.info(AUTH_FAIL_MESSAGE);
-//     }
-//   };
+export const checkAuthAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    await api.get(APIRoute.Login)
+      .then((()=> {
+        dispatch(requireAuthorisation(AuthorizationStatus.Auth));
+      }));
+  };
 
-// export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
-//   async (dispatch, _getState, api) => {
-//     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
-//     saveToken(token);
-//     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-//     dispatch(redirectToRoute(AppRoute.Result));
-//   };
+export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
+    saveToken(token);
+    dispatch(requireAuthorisation(AuthorizationStatus.Auth));
+  };
 
 
-// export const logoutAction = (): ThunkActionResult =>
-//   async (dispatch, _getState, api) => {
-//     api.delete(APIRoute.Logout);
-//     dropToken();
-//     dispatch(requireLogout());
-//   };
-// function redirectToRoute(Result: any): any {
-//   throw new Error('Function not implemented.');
-// }
+export const logoutAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    api.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(requireLogout());
+  };
 

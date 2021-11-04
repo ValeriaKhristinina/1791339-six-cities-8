@@ -5,21 +5,21 @@ import {
 import {
   AxiosInstance
 } from 'axios';
-import {changeCity , addOffers, requireAuthorization, requireLogout} from '../store/action';
+import {changeCity , addOffers, requireAuthorisation, requireLogout} from '../store/action';
 import { State } from './state';
 
 
 export enum ActionType {
   ChangeCity = 'city/changeCity',
   AddOffers = 'data/addOffers',
-  RequireAuthorization = 'user/requireAuthorization',
+  RequireAutorisation = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
 }
 
 export type Actions =
   | ReturnType<typeof changeCity>
   | ReturnType<typeof addOffers>
-  | ReturnType<typeof requireAuthorization>
+  | ReturnType<typeof requireAuthorisation>
   | ReturnType<typeof requireLogout>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;

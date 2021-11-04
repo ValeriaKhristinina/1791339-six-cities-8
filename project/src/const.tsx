@@ -13,14 +13,12 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-// export const citiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
-
-// export const MAP_CENTER = {
-//   name: 'Amsterdam',
-//   latitude: 52.3779562,
-//   longitude: 4.897070,
-//   zoom: 10,
-// };
+export enum APIRoute {
+  Offers = '/hotels',
+  Favorite = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+}
 
 export const CITIES: City[] = [
   {
@@ -80,13 +78,6 @@ export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_ACTIVE = '/img/pin-active.svg';
 
 export const DEFAULT_CITY = CITIES[0].name;
-
-export enum APIRoute {
-  Offers = '/hotels',
-  Favorite = '/favorite',
-  Login = '/login',
-  Logout = '/logout',
-}
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;

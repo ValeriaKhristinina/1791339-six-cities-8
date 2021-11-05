@@ -1,5 +1,5 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 import { AppRoute, isCheckedAuth } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import MainPage from '../main-page/main-page';
@@ -9,6 +9,7 @@ import LoginPage from '../login-page/login-page';
 import ErrorPage from '../error-page/error-page';
 import { State } from '../../types/state';
 import LoadingPage from '../loading-page/loading-page';
+import BrowserHistory from '../../browser-history';
 
 
 const mapStateToProps = (state: State) => ({
@@ -31,15 +32,13 @@ function App(props: PropsFromRedux): JSX.Element {
     );
   }
   return (
-    <BrowserRouter>
+    <Router history={BrowserHistory}>
       <Switch>
         <Route exact path={AppRoute.Root}>
           <MainPage />
         </Route>
 
-        <Route exact path={AppRoute.Login}>
-          <LoginPage />
-        </Route>
+        <Route render={({ history }) => <LoginPage onSubmitButtonClick={() => { history.push(AppRoute.Favorites); }} />} exact path={AppRoute.Login}></Route>
 
         <PrivateRoute
           exact
@@ -58,7 +57,7 @@ function App(props: PropsFromRedux): JSX.Element {
           <ErrorPage />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 

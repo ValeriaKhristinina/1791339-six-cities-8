@@ -1,8 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { FormEvent, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useHistory } from 'react-router';
-import { AppRoute } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { ThunkAppDispatch } from '../../types/action';
 import { AuthData } from '../../types/auth-data';
@@ -16,13 +14,11 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(null, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function LoginPage(props: PropsFromRedux): JSX.Element {
+function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }): JSX.Element {
 
-  const { onSubmit } = props;
+  const { onSubmit, onSubmitButtonClick } = props;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  const history = useHistory();
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -69,7 +65,7 @@ function LoginPage(props: PropsFromRedux): JSX.Element {
               />
             </div>
             <button
-              onClick={() => { history.push(AppRoute.Favorites); }}
+              onClick={onSubmitButtonClick}
               className="login__submit form__submit button"
               type="submit"
             >
@@ -85,7 +81,7 @@ function LoginPage(props: PropsFromRedux): JSX.Element {
           </div>
         </section>
       </div>
-    </main>
+    </main >
   );
 }
 export { LoginPage };

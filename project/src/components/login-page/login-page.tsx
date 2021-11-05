@@ -69,7 +69,7 @@ function LoginPage(props: PropsFromRedux): JSX.Element {
               />
             </div>
             <button
-              onClick={() => { history.push(AppRoute.Root); }}
+              onClick={() => { history.push(AppRoute.Favorites); }}
               className="login__submit form__submit button"
               type="submit"
             >

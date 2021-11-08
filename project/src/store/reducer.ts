@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {DEFAULT_CITY, AuthorizationStatus} from '../const';
 import {State} from '../types/state';
 import {ActionType, Actions} from '../types/action';
@@ -7,6 +8,7 @@ const initialState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
+  userEmail: null,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -34,6 +36,14 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.NoAuth,
+        userEmail: null,
+      };
+
+
+    case ActionType.GetEmail:
+      return {
+        ...state,
+        userEmail: action.payload,
       };
 
     default:

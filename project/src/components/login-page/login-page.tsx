@@ -29,6 +29,7 @@ function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }):
         password: passwordRef.current.value,
       });
     }
+    onSubmitButtonClick();
   };
 
   return (
@@ -65,7 +66,6 @@ function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }):
               />
             </div>
             <button
-              onClick={onSubmitButtonClick}
               className="login__submit form__submit button"
               type="submit"
             >

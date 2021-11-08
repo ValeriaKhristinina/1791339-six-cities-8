@@ -20,3 +20,8 @@ export const requireAuthorisation = (authStatus: AuthorizationStatus) => ({
 export const requireLogout = () => ({
   type: ActionType.RequireLogout,
 } as const);
+
+export const getEmail = (email: string) => ({
+  type: ActionType.GetEmail,
+  payload: email,
+} as const);

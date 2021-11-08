@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 import {ThunkActionResult} from '../types/action';
 import { Offer } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
-import { addOffers, requireAuthorisation, requireLogout } from './action';
+import { addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
 
 export const fetchOffersAction = (): ThunkActionResult =>
@@ -24,6 +25,8 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorisation(AuthorizationStatus.Auth));
+    dispatch(getEmail(email));
+    console.log('email:', email);
   };
 
 

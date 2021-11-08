@@ -5,7 +5,7 @@ import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
 import { addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
-
+const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться';
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     const {data} = await api.get<Offer[]>(APIRoute.Offers);
@@ -14,10 +14,12 @@ export const fetchOffersAction = (): ThunkActionResult =>
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(APIRoute.Login)
-      .then((()=> {
-        dispatch(requireAuthorisation(AuthorizationStatus.Auth));
-      }));
+    try {
+      await api.get(APIRoute.Login);
+      dispatch(requireAuthorisation(AuthorizationStatus.Auth));
+    } catch {
+      console.log(AUTH_FAIL_MESSAGE);
+    }
   };
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>

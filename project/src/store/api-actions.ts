@@ -16,6 +16,7 @@ export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
       await api.get(APIRoute.Login);
+      console.log('1');
       dispatch(requireAuthorisation(AuthorizationStatus.Auth));
     } catch {
       console.log(AUTH_FAIL_MESSAGE);
@@ -26,6 +27,7 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
   async (dispatch, _getState, api) => {
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
+    console.log('2');
     dispatch(requireAuthorisation(AuthorizationStatus.Auth));
     dispatch(getEmail(email));
     console.log('email:', email);

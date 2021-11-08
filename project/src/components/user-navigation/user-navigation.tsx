@@ -52,11 +52,11 @@ function UserNavigation({ auth, email, onSubmit }: PropsFromRedux): JSX.Element 
                   </li>
                 </>
               )}
-              {auth === AuthorizationStatus.NoAuth || auth === AuthorizationStatus.Unknown && (
+              {(auth === AuthorizationStatus.NoAuth || auth === AuthorizationStatus.Unknown) && (
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
+                    {/* <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div> */}
                     <span className="header__login">Sign in</span>
                   </Link>
                 </li>

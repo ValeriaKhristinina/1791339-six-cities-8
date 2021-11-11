@@ -10,13 +10,15 @@ import ErrorPage from '../error-page/error-page';
 import { State } from '../../types/state';
 import LoadingPage from '../loading-page/loading-page';
 import BrowserHistory from '../../browser-history';
+import { getOffers, getFavoritesOffers, getLoadedDataStatus } from '../../store/app-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 const mapStateToProps = (state: State) => ({
-  offers: state.offers,
-  favoritesOffers: state.offers,
-  authorizationStatus: state.authorizationStatus,
-  isDataLoaded: state.isDataLoaded,
+  offers: getOffers(state),
+  favoritesOffers: getFavoritesOffers(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  isDataLoaded: getLoadedDataStatus(state),
 });
 
 const connector = connect(mapStateToProps);

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers, Offer } from '../../types/offer';
 import { widthRating } from '../../utils';
-import Reviews from '../reviews/reviews';
-import { reviews } from '../../mocks/reviews';
+// import Reviews from '../reviews/reviews';
+// import { reviews } from '../../mocks/reviews';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import { findMapCenter } from '../../const';
@@ -48,7 +48,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {images.map((image: string | undefined) => (
-                <div className="property__image-wrapper">
+                <div className="property__image-wrapper" key={image}>
                   <img className="property__image" src={image} alt="" />
                 </div>
               ))}
@@ -97,7 +97,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {goods.map((good) => (
-                    <li className="property__inside-item">
+                    <li className="property__inside-item" key={good}>
                       {good}
                     </li>
                   ))}
@@ -124,7 +124,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
                   </p>
                 </div>
               </div>
-              <Reviews reviews={reviews} />
+              {/* <Reviews reviews={reviews} /> */}
             </div>
           </div>
           <Map

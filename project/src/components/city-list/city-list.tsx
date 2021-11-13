@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react';
 import { City } from '../../types/offer';
 
 type CityListProps = {
@@ -24,4 +25,4 @@ function CityList({ cityList, selectedCity, setSelectedCity }: CityListProps): J
   );
 }
 
-export default CityList;
+export default React.memo(CityList);

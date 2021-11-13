@@ -49,11 +49,7 @@ function App(props: PropsFromRedux): JSX.Element {
         >
         </PrivateRoute>
 
-        <Route exact path={AppRoute.Room}>
-          <RoomPage
-            offers={offers}
-          />
-        </Route>
+        <Route render={({ match }) => <RoomPage offerId={match.params.id} offers={offers} />} exact path={AppRoute.Room}></Route>
 
         <Route>
           <ErrorPage />

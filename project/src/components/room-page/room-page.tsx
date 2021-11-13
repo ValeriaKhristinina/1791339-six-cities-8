@@ -1,8 +1,7 @@
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
-/* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { Offers, Offer } from '../../types/offer';
 import { widthRating } from '../../utils';
 import Map from '../map/map';
@@ -11,16 +10,18 @@ import { findMapCenter } from '../../const';
 import UserNavigation from '../user-navigation/user-navigation';
 import { connect, ConnectedProps } from 'react-redux';
 import { fetchCommentsAction } from '../../store/api-actions';
-import { getComments } from '../../store/app-data/selectors';
+import { getComments, getOfferById } from '../../store/app-data/selectors';
 import { State } from '../../types/state';
 import Reviews from '../reviews/reviews';
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: State, ownProps: RoomPageProps) => ({
   comments: getComments(state),
+  offer: getOfferById(state, ownProps.offerId),
 });
 
 type RoomPageProps = {
   offers: Offers,
+  offerId: string,
 }
 
 
@@ -32,34 +33,27 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function RoomPage({ offers, comments, fetchComment }: PropsFromRedux & RoomPageProps): JSX.Element {
+function RoomPage({ offers, offer, comments, offerId, fetchComment }: PropsFromRedux & RoomPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
-  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    fetchComment(id);
-  }, [id, fetchComment]);
+    fetchComment(offerId);
+  }, [offerId, fetchComment]);
 
-  const onCardHover = (offerId: number) => {
-    const currentOffer = offers.find((offer) =>
-      offer.id === offerId,
+  const onCardHover = (id: number) => {
+    const currentOffer = offers.find((item) =>
+      item.id === id,
     );
     if (currentOffer) {
       setSelectedOffer(currentOffer);
     }
   };
 
-  const ourOffer = offers.find((offer) => {
-    if (offer.id === Number(id)) {
-      return true;
-    }
-    return false;
-  });
 
-  if (!ourOffer) {
+  if (!offer) {
     return <div></div>;
   }
-  const { images, rating, type, bedrooms, max_adults, price, goods, host, description, city } = ourOffer;
+  const { images, rating, type, bedrooms, max_adults, price, goods, host, description, city } = offer;
 
   return (
     <div className="page">
@@ -77,13 +71,13 @@ function RoomPage({ offers, comments, fetchComment }: PropsFromRedux & RoomPageP
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {ourOffer?.is_premium && (
+              {offer?.is_premium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>)}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {ourOffer?.title}
+                  {offer?.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">

@@ -16,7 +16,7 @@ function Reviews({ reviews }: ReviewsProps): JSX.Element {
           reviews.map(
             (review) => (
               // eslint-disable-next-line react/jsx-key
-              <Review commentReview={review} />
+              <Review commentReview={review} key={review.id} />
             ))
         }
 

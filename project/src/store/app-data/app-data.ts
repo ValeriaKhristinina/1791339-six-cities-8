@@ -3,6 +3,7 @@ import {AppData} from '../../types/state';
 
 const initialState: AppData = {
   offers: [],
+  comments: [],
   isDataLoaded: false,
 };
 
@@ -13,6 +14,12 @@ const appData = (state = initialState, action: Actions): AppData => {
         ...state,
         offers: action.payload,
         isDataLoaded: true,
+      };
+    }
+    case ActionType.AddComments: {
+      return {
+        ...state,
+        comments: action.payload,
       };
     }
     default:

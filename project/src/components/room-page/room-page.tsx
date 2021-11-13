@@ -1,22 +1,44 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers, Offer } from '../../types/offer';
 import { widthRating } from '../../utils';
-// import Reviews from '../reviews/reviews';
-// import { reviews } from '../../mocks/reviews';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import { findMapCenter } from '../../const';
 import UserNavigation from '../user-navigation/user-navigation';
+import { connect, ConnectedProps } from 'react-redux';
+import { fetchCommentsAction } from '../../store/api-actions';
+import { getComments } from '../../store/app-data/selectors';
+import { State } from '../../types/state';
+import Reviews from '../reviews/reviews';
+
+const mapStateToProps = (state: State) => ({
+  comments: getComments(state),
+});
 
 type RoomPageProps = {
   offers: Offers,
 }
 
-function RoomPage({ offers }: RoomPageProps): JSX.Element {
+
+const mapDispatchToProps = {
+  fetchComment: (id: string) => fetchCommentsAction(id),
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+
+function RoomPage({ offers, comments, fetchComment }: PropsFromRedux & RoomPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    fetchComment(id);
+  }, [id, fetchComment]);
 
   const onCardHover = (offerId: number) => {
     const currentOffer = offers.find((offer) =>
@@ -27,7 +49,6 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
     }
   };
 
-  const { id } = useParams<{ id: string }>();
   const ourOffer = offers.find((offer) => {
     if (offer.id === Number(id)) {
       return true;
@@ -38,7 +59,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
   if (!ourOffer) {
     return <div></div>;
   }
-  const { images, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = ourOffer;
+  const { images, rating, type, bedrooms, max_adults, price, goods, host, description, city } = ourOffer;
 
   return (
     <div className="page">
@@ -56,7 +77,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {ourOffer?.isPremium && (
+              {ourOffer?.is_premium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>)}
@@ -86,7 +107,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
                   {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {maxAdults} adults
+                  Max {max_adults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -107,12 +128,12 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {host.isPro && (
+                  {host.is_pro && (
                     <span className="property__user-status">
                       Pro
                     </span>
@@ -124,7 +145,7 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
                   </p>
                 </div>
               </div>
-              {/* <Reviews reviews={reviews} /> */}
+              <Reviews reviews={comments} />
             </div>
           </div>
           <Map
@@ -150,4 +171,4 @@ function RoomPage({ offers }: RoomPageProps): JSX.Element {
 }
 
 
-export default RoomPage;
+export default connector(RoomPage);

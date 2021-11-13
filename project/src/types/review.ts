@@ -1,12 +1,13 @@
+/* eslint-disable camelcase */
 export type ReviewType = {
   comment: string,
   date: string,
   id: number,
   rating: number,
   user: {
-    avatarUrl: string,
+    avatar_url: string,
     id: number,
-    isPro: boolean,
+    is_pro: boolean,
     name: string
   }
 }

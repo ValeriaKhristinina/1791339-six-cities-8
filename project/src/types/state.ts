@@ -1,9 +1,11 @@
 import { Offers } from './offer';
 import {AuthorizationStatus} from '../const';
 import { RootState } from '../store/root-reducer';
+import { Reviews } from './review';
 
 export type AppData = {
   offers: Offers,
+  comments: Reviews,
   isDataLoaded: boolean,
 }
 

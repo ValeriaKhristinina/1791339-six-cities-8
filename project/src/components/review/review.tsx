@@ -15,6 +15,13 @@ function Review({ commentReview }: ReviewProps): JSX.Element {
           <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">{user.name}</span>
+        {
+          user.isPro && (
+            <span className="property__user-status">
+              Pro
+            </span>
+          )
+        }
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">

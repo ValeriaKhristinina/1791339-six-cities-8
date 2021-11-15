@@ -31,3 +31,8 @@ export const getEmail = (email: string) => ({
   type: ActionType.GetEmail,
   payload: email,
 } as const);
+
+export const addNearbyOffers = (nearbyOffers: Offers) => ({
+  type: ActionType.AddNearbyOffers,
+  payload: nearbyOffers,
+} as const);

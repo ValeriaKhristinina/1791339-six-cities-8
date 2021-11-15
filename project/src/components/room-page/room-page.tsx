@@ -2,46 +2,48 @@
 /* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
-import { Offers, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { widthRating } from '../../utils';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import { findMapCenter } from '../../const';
 import UserNavigation from '../user-navigation/user-navigation';
 import { connect, ConnectedProps } from 'react-redux';
-import { fetchCommentsAction } from '../../store/api-actions';
-import { getComments, getOfferById } from '../../store/app-data/selectors';
+import { fetchCommentsAction, fetchNearbyOffersAction } from '../../store/api-actions';
+import { getComments, getNearbyOffers, getOfferById } from '../../store/app-data/selectors';
 import { State } from '../../types/state';
 import Reviews from '../reviews/reviews';
 
 const mapStateToProps = (state: State, ownProps: RoomPageProps) => ({
   comments: getComments(state),
+  nearbyOffers: getNearbyOffers(state),
   offer: getOfferById(state, ownProps.offerId),
 });
 
 type RoomPageProps = {
-  offers: Offers,
   offerId: string,
 }
 
 
 const mapDispatchToProps = {
   fetchComment: (id: string) => fetchCommentsAction(id),
+  fetchNearbyOffers: (id: string) => fetchNearbyOffersAction(id),
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function RoomPage({ offers, offer, comments, offerId, fetchComment }: PropsFromRedux & RoomPageProps): JSX.Element {
+function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchNearbyOffers }: PropsFromRedux & RoomPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
 
   useEffect(() => {
     fetchComment(offerId);
-  }, [offerId, fetchComment]);
+    fetchNearbyOffers(offerId);
+  }, [offerId, fetchComment, fetchNearbyOffers]);
 
   const onCardHover = (id: number) => {
-    const currentOffer = offers.find((item) =>
+    const currentOffer = nearbyOffers.find((item) =>
       item.id === id,
     );
     if (currentOffer) {
@@ -145,7 +147,7 @@ function RoomPage({ offers, offer, comments, offerId, fetchComment }: PropsFromR
           <Map
             setAdditionalClass={'property__map'}
             mapCenter={findMapCenter(city.name)}
-            points={offers}
+            points={nearbyOffers}
             selectedOffer={selectedOffer}
           />
         </section>
@@ -153,7 +155,7 @@ function RoomPage({ offers, offer, comments, offerId, fetchComment }: PropsFromR
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
-              offers={offers}
+              offers={nearbyOffers}
               onCardHover={onCardHover}
               isFavoritesPage={false}
             />

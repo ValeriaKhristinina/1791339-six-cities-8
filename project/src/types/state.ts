@@ -7,6 +7,7 @@ export type AppData = {
   offers: Offers,
   comments: Reviews,
   isDataLoaded: boolean,
+  nearbyOffers: Offers,
 }
 
 export type CityProcess = {

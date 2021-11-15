@@ -3,7 +3,7 @@ import {ThunkActionResult} from '../types/action';
 import { Offer } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
-import { addComments, addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
+import { addComments, addNearbyOffers, addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
 import { ReviewType } from '../types/review';
 
@@ -49,5 +49,11 @@ export const logoutAction = (): ThunkActionResult =>
     api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireLogout());
+  };
+
+export const fetchNearbyOffersAction = (id: string): ThunkActionResult =>
+  async (dispatch, getState, api): Promise<void> => {
+    const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${id}${APIRoute.NearbyOffers}`);
+    dispatch(addNearbyOffers(data));
   };
 

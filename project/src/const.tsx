@@ -19,6 +19,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  NearbyOffers = '/nearby'
 }
 
 export const CITIES: City[] = [

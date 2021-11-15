@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
 import {ThunkActionResult} from '../types/action';
-import { Offer } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
 import { addComments, addNearbyOffers, addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
-import { ReviewType } from '../types/review';
-import {adaptToClient} from '../services/adapters';
+import { ServerReviewType } from '../types/review';
+import {adaptCommentsToClient, adaptOfferToClient} from '../services/adapters';
 import { ServerOffer } from '../types/server-offer';
 
 const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться';
@@ -14,14 +13,14 @@ const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться';
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     const {data} = await api.get<ServerOffer[]>(APIRoute.Offers);
-    dispatch(addOffers(data.map((item) => adaptToClient(item))));
+    dispatch(addOffers(data.map((dataItem) => adaptOfferToClient(dataItem))));
   };
 
 export const fetchCommentsAction = (id: string): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
-    const {data} = await api.get<ReviewType[]>(`${APIRoute.Comments}/${id}`);
+    const {data} = await api.get<ServerReviewType[]>(`${APIRoute.Comments}/${id}`);
     console.log(data);
-    dispatch(addComments(data));
+    dispatch(addComments(data.map((dataItem) => adaptCommentsToClient(dataItem))));
   };
 
 export const checkAuthAction = (): ThunkActionResult =>
@@ -55,7 +54,7 @@ export const logoutAction = (): ThunkActionResult =>
 
 export const fetchNearbyOffersAction = (id: string): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
-    const {data} = await api.get<Offer[]>(`${APIRoute.Offers}/${id}${APIRoute.NearbyOffers}`);
-    dispatch(addNearbyOffers(data));
+    const {data} = await api.get<ServerOffer[]>(`${APIRoute.Offers}/${id}${APIRoute.NearbyOffers}`);
+    dispatch(addNearbyOffers(data.map((dataItem) => adaptOfferToClient(dataItem))));
   };
 

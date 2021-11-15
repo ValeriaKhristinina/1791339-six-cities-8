@@ -22,13 +22,15 @@ export enum APIRoute {
   NearbyOffers = '/nearby'
 }
 
+const cityMapZoom = 13;
+
 export const CITIES: City[] = [
   {
     name: 'Paris',
     location: {
       latitude: 48.864716,
       longitude: 2.349014,
-      zoom: 10,
+      zoom: cityMapZoom,
     },
   },
   {
@@ -36,7 +38,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 50.933594,
       longitude: 6.961899,
-      zoom: 10,
+      zoom: cityMapZoom,
     },
   },
   {
@@ -44,7 +46,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 50.8465573,
       longitude: 4.351697,
-      zoom: 10,
+      zoom: cityMapZoom,
     },
   },
   {
@@ -52,7 +54,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 52.3779562,
       longitude: 4.897070,
-      zoom: 10,
+      zoom: cityMapZoom,
     },
   },
   {
@@ -60,7 +62,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 53.551086,
       longitude: 9.993682,
-      zoom: 10,
+      zoom: cityMapZoom,
     },
   },
   {
@@ -68,7 +70,7 @@ export const CITIES: City[] = [
     location: {
       latitude: 51.233334,
       longitude: 6.783333,
-      zoom: 10,
+      zoom: cityMapZoom,
     },
   },
 ];

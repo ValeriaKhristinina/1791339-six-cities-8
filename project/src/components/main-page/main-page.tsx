@@ -13,10 +13,12 @@ import CityList from '../city-list/city-list';
 import { State } from '../../types/state';
 import { changeCity } from '../../store/action';
 import UserNavigation from '../user-navigation/user-navigation';
+import { getCity } from '../../store/city-process/selectors';
+import { getFilteredByCityOffers } from '../../store/app-data/selectors';
 
 const mapStateToProps = (state: State) => ({
-  city: state.city,
-  offers: state.offers.filter((offer) => offer.city.name === state.city),
+  city: getCity(state),
+  offers: getFilteredByCityOffers(state),
 });
 
 

@@ -7,6 +7,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 import { ThunkAppDispatch } from '../../types/action';
 import { State } from '../../types/state';
+import { getAuthorizationStatus, getUserEmail } from '../../store/user-process/selectors';
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit() {
@@ -15,8 +16,8 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 });
 
 const mapStateToProps = (state: State) => ({
-  auth: state.authorizationStatus,
-  email: state.userEmail,
+  auth: getAuthorizationStatus(state),
+  email: getUserEmail(state),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

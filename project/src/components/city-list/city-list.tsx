@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-// import { useState } from 'react';
-
+import React from 'react';
 import { City } from '../../types/offer';
 
 type CityListProps = {
@@ -16,7 +14,7 @@ function CityList({ cityList, selectedCity, setSelectedCity }: CityListProps): J
     <ul className="locations__list tabs__list">
       {
         cityList.map((city) => (
-          <li className="locations__item">
+          <li className="locations__item" key={city.name}>
             <a onClick={() => { setSelectedCity(city.name); }} className={`locations__item-link tabs__item ${selectedCity === city.name ? 'tabs__item--active' : ''}`} href="#">
               <span>{city.name}</span>
             </a>
@@ -27,4 +25,4 @@ function CityList({ cityList, selectedCity, setSelectedCity }: CityListProps): J
   );
 }
 
-export default CityList;
+export default React.memo(CityList);

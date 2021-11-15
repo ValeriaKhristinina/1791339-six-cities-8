@@ -3,13 +3,23 @@ import {ThunkActionResult} from '../types/action';
 import { Offer } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
-import { addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
+import { addComments, addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
+import { ReviewType } from '../types/review';
+
 const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться';
+
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     const {data} = await api.get<Offer[]>(APIRoute.Offers);
     dispatch(addOffers(data));
+  };
+
+export const fetchCommentsAction = (id: string): ThunkActionResult =>
+  async (dispatch, getState, api): Promise<void> => {
+    const {data} = await api.get<ReviewType[]>(`${APIRoute.Comments}/${id}`);
+    console.log(data);
+    dispatch(addComments(data));
   };
 
 export const checkAuthAction = (): ThunkActionResult =>

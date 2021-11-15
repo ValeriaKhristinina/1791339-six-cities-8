@@ -1,6 +1,7 @@
 import {ActionType} from '../types/action';
 import { Offers } from '../types/offer';
 import { AuthorizationStatus } from '../const';
+import { ReviewType } from '../types/review';
 
 export const changeCity = (city: string)  => ({
   type: ActionType.ChangeCity,
@@ -10,6 +11,11 @@ export const changeCity = (city: string)  => ({
 export const addOffers = (offers: Offers) => ({
   type: ActionType.AddOffers,
   payload: offers,
+} as const);
+
+export const addComments = (comments: ReviewType[]) => ({
+  type: ActionType.AddComments,
+  payload: comments,
 } as const);
 
 export const requireAuthorisation = (authStatus: AuthorizationStatus) => ({

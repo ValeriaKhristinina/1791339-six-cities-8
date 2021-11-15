@@ -6,13 +6,15 @@ import { APIRoute , AuthorizationStatus } from '../const';
 import { addComments, addNearbyOffers, addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
 import { ReviewType } from '../types/review';
+import {adaptToClient} from '../services/adapters';
+import { ServerOffer } from '../types/server-offer';
 
 const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
-    const {data} = await api.get<Offer[]>(APIRoute.Offers);
-    dispatch(addOffers(data));
+    const {data} = await api.get<ServerOffer[]>(APIRoute.Offers);
+    dispatch(addOffers(data.map((item) => adaptToClient(item))));
   };
 
 export const fetchCommentsAction = (id: string): ThunkActionResult =>

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export type Location = {
   latitude: number,
   longitude: number,
@@ -10,13 +11,13 @@ export type City = {
 }
 
 export type Host = {
-  avatarUrl: string,
+  avatar_url: string,
   id: number,
-  isPro: boolean,
+  is_pro: boolean,
   name: string
 }
 
-export type Offer = {
+export type ServerOffer = {
   bedrooms: number,
   city: City,
   description: string,
@@ -24,15 +25,13 @@ export type Offer = {
   host: Host,
   id: number,
   images: string[],
-  isFavorite: boolean,
-  isPremium: boolean,
+  is_favorite: boolean,
+  is_premium: boolean,
   location: Location,
-  maxAdults: number,
-  previewImage: string,
+  max_adults: number,
+  preview_image: string,
   price: number,
   rating: number,
   title: string,
   type: string
 }
-
-export type Offers = Offer[];

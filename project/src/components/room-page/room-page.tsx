@@ -55,7 +55,7 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
   if (!offer) {
     return <div></div>;
   }
-  const { images, rating, type, bedrooms, max_adults, price, goods, host, description, city } = offer;
+  const { images, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = offer;
 
   return (
     <div className="page">
@@ -73,7 +73,7 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offer?.is_premium && (
+              {offer?.isPremium && (
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>)}
@@ -103,7 +103,7 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
                   {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {max_adults} adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -124,12 +124,12 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  {host.is_pro && (
+                  {host.isPro && (
                     <span className="property__user-status">
                       Pro
                     </span>

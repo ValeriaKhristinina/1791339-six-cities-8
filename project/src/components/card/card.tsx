@@ -11,11 +11,11 @@ type CardProps = {
 }
 
 function Card({ offer, onMouseEnter, isFavoritesPage }: CardProps): JSX.Element {
-  const { price, rating, title, type, is_favorite } = offer;
+  const { price, rating, title, type, isFavorite } = offer;
   const cardPath = `/offer/${offer.id}`;
   return (
     <article onMouseEnter={onMouseEnter} className={`place-card ${isFavoritesPage ? 'favorites__card' : 'cities__place-card '}`}>
-      {offer.is_premium && (
+      {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -31,7 +31,7 @@ function Card({ offer, onMouseEnter, isFavoritesPage }: CardProps): JSX.Element 
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${is_favorite ? 'place-card__bookmark-button--active ' : ''}`} type="button">
+          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active ' : ''}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

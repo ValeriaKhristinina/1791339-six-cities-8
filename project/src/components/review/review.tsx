@@ -1,5 +1,5 @@
 import { ReviewType } from '../../types/review';
-import { widthRating } from '../../utils';
+import { widthRating } from '../../utils/utils';
 
 type ReviewProps = {
   commentReview: ReviewType;

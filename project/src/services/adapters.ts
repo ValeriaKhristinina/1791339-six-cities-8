@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Offer} from '../types/offer';
 import { ReviewType, ServerReviewType } from '../types/review';
 import {ServerOffer} from '../types/server-offer';

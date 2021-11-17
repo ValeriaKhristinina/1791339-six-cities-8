@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
 import { Offer } from '../../types/offer';
-import { widthRating } from '../../utils';
+import { widthRating } from '../../utils/utils';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import { findMapCenter } from '../../const';

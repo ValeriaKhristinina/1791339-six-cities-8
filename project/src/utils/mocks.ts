@@ -52,3 +52,5 @@ export const makeFakeComments = (): ReviewType => ({
     name: name.firstName(),
   },
 });
+
+export const makeFakeEmail = (): string => (internet.email());

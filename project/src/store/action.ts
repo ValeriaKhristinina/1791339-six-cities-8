@@ -18,8 +18,8 @@ export const addComments = (comments: ReviewType[]) => ({
   payload: comments,
 } as const);
 
-export const requireAuthorisation = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireAuthorisation,
+export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.RequireAuthorization,
   payload: authStatus,
 } as const);
 

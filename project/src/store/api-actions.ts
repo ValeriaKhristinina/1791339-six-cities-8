@@ -2,7 +2,7 @@
 import {ThunkActionResult} from '../types/action';
 import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
-import { addComments, addNearbyOffers, addOffers, getEmail, requireAuthorisation, requireLogout } from './action';
+import { addComments, addNearbyOffers, addOffers, getEmail, requireAuthorization, requireLogout } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
 import { ServerReviewType } from '../types/review';
 import {adaptCommentsToClient, adaptOfferToClient} from '../services/adapters';
@@ -28,7 +28,7 @@ export const checkAuthAction = (): ThunkActionResult =>
     try {
       await api.get(APIRoute.Login);
       console.log('1');
-      dispatch(requireAuthorisation(AuthorizationStatus.Auth));
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {
       console.log(AUTH_FAIL_MESSAGE);
     }
@@ -39,7 +39,7 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
     console.log('2');
-    dispatch(requireAuthorisation(AuthorizationStatus.Auth));
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(getEmail(email));
     console.log('email:', email);
   };

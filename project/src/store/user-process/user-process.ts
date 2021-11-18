@@ -9,7 +9,7 @@ const initialState: UserProcess = {
 
 const userProcess = (state = initialState, action: Actions): UserProcess => {
   switch (action.type) {
-    case ActionType.RequireAuthorisation: {
+    case ActionType.RequireAuthorization: {
       return {
         ...state,
         authorizationStatus: action.payload,

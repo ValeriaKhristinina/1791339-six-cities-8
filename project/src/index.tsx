@@ -11,10 +11,10 @@ import { applyMiddleware } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import { ThunkAppDispatch } from './types/action';
-import { requireAuthorisation } from './store/action';
+import { requireAuthorization } from './store/action';
 
 const api = createAPI(
-  () => store.dispatch(requireAuthorisation(AuthorizationStatus.NoAuth)),
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
 );
 const store = createStore(
   rootReducer,

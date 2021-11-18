@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {ThunkActionResult} from '../types/action';
 import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
@@ -19,7 +18,6 @@ export const fetchOffersAction = (): ThunkActionResult =>
 export const fetchCommentsAction = (id: string): ThunkActionResult =>
   async (dispatch, getState, api): Promise<void> => {
     const {data} = await api.get<ServerReviewType[]>(`${APIRoute.Comments}/${id}`);
-    console.log(data);
     dispatch(addComments(data.map((dataItem) => adaptCommentsToClient(dataItem))));
   };
 
@@ -27,9 +25,9 @@ export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
       await api.get(APIRoute.Login);
-      console.log('1');
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {
+      // eslint-disable-next-line no-console
       console.log(AUTH_FAIL_MESSAGE);
     }
   };
@@ -38,10 +36,8 @@ export const loginAction = ({login: email, password}: AuthData): ThunkActionResu
   async (dispatch, _getState, api) => {
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
-    console.log('2');
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(getEmail(email));
-    console.log('email:', email);
   };
 
 

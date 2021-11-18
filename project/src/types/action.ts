@@ -14,7 +14,7 @@ export enum ActionType {
   AddOffers = 'data/addOffers',
   AddComments = 'data/addComments',
   AddNearbyOffers = 'data/addNearbyOffers',
-  RequireAutorisation = 'user/requireAuthorization',
+  RequireAuthorisation = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   GetEmail = 'user/getEmail',
 }

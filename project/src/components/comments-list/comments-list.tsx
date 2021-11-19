@@ -12,7 +12,7 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
       {
         reviews.map(
           (review) => (
-            <Review commentReview={review} />
+            <Review commentReview={review} key={review.id} />
           ))
       }
 

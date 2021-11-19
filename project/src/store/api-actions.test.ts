@@ -8,7 +8,7 @@ import {checkAuthAction, fetchOffersAction, fetchCommentsAction, fetchNearbyOffe
 import {APIRoute, AuthorizationStatus} from '../const';
 import {State} from '../types/state';
 import {addComments, addNearbyOffers, addOffers, getEmail, requireAuthorization, requireLogout} from './action';
-import {makeFakeComments, makeFakeOffer} from '../utils/mocks';
+import {makeFakeComment, makeFakeOffer} from '../utils/mocks';
 import {adaptCommentsToServer, adaptOfferToServer} from '../services/adapters';
 import { AuthData } from '../types/auth-data';
 
@@ -91,7 +91,7 @@ describe('Async actions', () => {
   });
 
   it('should dispatch addComments when GET /comments', async () => {
-    const mockComments = new Array(3).fill(null).map(()=>(makeFakeComments()));
+    const mockComments = new Array(3).fill(null).map(()=>(makeFakeComment()));
     const mockServerComments = mockComments.map((comment)=> adaptCommentsToServer(comment));
 
     mockAPI

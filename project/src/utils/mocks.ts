@@ -1,5 +1,5 @@
 import {address, lorem, commerce, name, internet, image, datatype} from 'faker';
-import {Offer} from '../types/offer';
+import {City, Offer} from '../types/offer';
 import { ReviewType } from '../types/review';
 
 const getRandomRaiting = () => (Math.floor(Math.random() * 5) + 1);
@@ -40,7 +40,7 @@ export const makeFakeOffer = (): Offer => ({
 } as Offer);
 
 
-export const makeFakeComments = (): ReviewType => ({
+export const makeFakeComment = (): ReviewType => ({
   comment: lorem.paragraph(),
   date: String(datatype.datetime()),
   id: datatype.number(),
@@ -54,3 +54,12 @@ export const makeFakeComments = (): ReviewType => ({
 });
 
 export const makeFakeEmail = (): string => (internet.email());
+
+export const makeFakeCity = (): City => ({
+  location: {
+    latitude: Number(address.latitude()),
+    longitude: Number(address.longitude()),
+    zoom: 13,
+  },
+  name: address.cityName(),
+});

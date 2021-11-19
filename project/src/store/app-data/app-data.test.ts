@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import { addComments, addNearbyOffers, addOffers } from '../action';
 import {appData} from './app-data';
-import {makeFakeComments, makeFakeOffer} from '../../utils/mocks';
+import {makeFakeComment, makeFakeOffer} from '../../utils/mocks';
 
 const offers = new Array(3).fill(null).map(()=>(makeFakeOffer()));
-const comments = new Array(3).fill(null).map(()=>(makeFakeComments()));
+const comments = new Array(3).fill(null).map(()=>(makeFakeComment()));
 
 describe('Reducer: appData', () => {
   it('without additional parameters should return initial state', () => {

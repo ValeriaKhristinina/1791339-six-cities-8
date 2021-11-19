@@ -1,6 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-mixed-operators */
-/* eslint-disable no-console */
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
@@ -25,7 +23,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
 function UserNavigation({ auth, email, onSubmit }: PropsFromRedux): JSX.Element {
-  console.log('auth', auth);
   return (
     <header className="header">
       <div className="container">

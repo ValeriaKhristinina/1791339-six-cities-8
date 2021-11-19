@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import Review from '../review/review';
 import { ReviewType } from '../../types/review';
 

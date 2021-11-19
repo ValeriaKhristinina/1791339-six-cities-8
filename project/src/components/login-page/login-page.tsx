@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { FormEvent, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { loginAction } from '../../store/api-actions';
@@ -75,7 +74,7 @@ function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }):
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
+            <a className="locations__item-link" href="/">
               <span>Amsterdam</span>
             </a>
           </div>

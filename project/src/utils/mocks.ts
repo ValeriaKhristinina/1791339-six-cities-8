@@ -12,7 +12,7 @@ export const makeFakeOffer = (): Offer => ({
       longitude: Number(address.longitude()),
       zoom: 13,
     },
-    name: address.cityName(),
+    name: 'Paris',
   },
   description: lorem.paragraph(),
   goods: new Array(3).fill(null).map(() => (commerce.product())),

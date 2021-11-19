@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable camelcase */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
 import { Offer } from '../../types/offer';
 import { widthRating } from '../../utils/utils';

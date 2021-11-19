@@ -1,7 +1,7 @@
 import CommentsList from './comments-list';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { makeFakeComment } from '../../utils/mocks';
 
 const history = createMemoryHistory();

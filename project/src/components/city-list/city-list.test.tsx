@@ -1,9 +1,8 @@
 import CityList from './city-list';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { makeFakeCity } from '../../utils/mocks';
-import cityList from './city-list';
 
 const history = createMemoryHistory();
 const fakeCityList = new Array(5).fill(null).map(() => makeFakeCity());

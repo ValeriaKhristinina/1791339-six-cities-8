@@ -5,7 +5,6 @@ type ReviewProps = {
   commentReview: ReviewType;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 function Review({ commentReview }: ReviewProps): JSX.Element {
   const { user, comment, date, rating } = commentReview;
   return (

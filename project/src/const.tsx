@@ -19,7 +19,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
-  NearbyOffers = '/nearby'
+  NearbyOffers = '/nearby',
 }
 
 const cityMapZoom = 13;

@@ -1,13 +1,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Offers } from '../../types/offer';
+import { useEffect } from 'react';
+import { ConnectedProps, connect } from 'react-redux';
+import { fetchFavoritesOffersAction } from '../../store/api-actions';
+import { getFavoritesOffers } from '../../store/app-data/selectors';
+import { State } from '../../types/state';
 import OffersList from '../offers-list/offers-list';
 import UserNavigation from '../user-navigation/user-navigation';
 
-type FavoritesPageProps = {
-  offers: Offers,
-}
+const mapStateToProps = (state: State) => ({
+  favoritesOffers: getFavoritesOffers(state),
+});
 
-function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
+const mapDispatchToProps = {
+  fetchFavoritesOffers: () => fetchFavoritesOffersAction(),
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+
+function FavoritesPage({ favoritesOffers, fetchFavoritesOffers }: PropsFromRedux): JSX.Element {
+  useEffect(() => {
+    fetchFavoritesOffers();
+  }, [fetchFavoritesOffers]);
   return (
     <div className="page">
       <UserNavigation />
@@ -20,11 +35,11 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
                     <a className="locations__item-link" href="#">
-                      <span>{offers[0].city.name}</span>
+                      {/* <span>{favoritesOffers[0].city.name}</span> */}
                     </a>
                   </div>
                 </div>
-                <OffersList isFavoritesPage offers={offers} />
+                <OffersList isFavoritesPage offers={favoritesOffers} />
               </li>
             </ul>
           </section>
@@ -34,4 +49,4 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
   );
 }
 
-export default FavoritesPage;
+export default connector(FavoritesPage);

@@ -36,3 +36,13 @@ export const addNearbyOffers = (nearbyOffers: Offers) => ({
   type: ActionType.AddNearbyOffers,
   payload: nearbyOffers,
 } as const);
+
+export const addFavoritesOffers = (favoritesOffers: Offers) => ({
+  type: ActionType.AddFavoritesOffers,
+  payload: favoritesOffers,
+} as const);
+
+export const updateOfferFavoriteStatus = (offerId: number, isFavorite: boolean) => ({
+  type: ActionType.UpdateOfferFavoriteStatus,
+  payload: {offerId, isFavorite},
+} as const);

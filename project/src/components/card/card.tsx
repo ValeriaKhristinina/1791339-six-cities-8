@@ -1,6 +1,16 @@
+import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 import { widthRating } from '../../utils/utils';
+
+const mapDispatchToProps = {
+  changeFavoriteStatus: (id: number, isFavorite: boolean) => changeFavoriteStatusAction(id, isFavorite),
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type CardProps = {
   offer: Offer;
@@ -8,7 +18,7 @@ type CardProps = {
   isFavoritesPage: boolean
 }
 
-function Card({ offer, onMouseEnter, isFavoritesPage }: CardProps): JSX.Element {
+function Card({ offer, onMouseEnter, isFavoritesPage, changeFavoriteStatus }: PropsFromRedux & CardProps): JSX.Element {
   const { price, rating, title, type, isFavorite } = offer;
   const cardPath = `/offer/${offer.id}`;
   return (
@@ -29,7 +39,7 @@ function Card({ offer, onMouseEnter, isFavoritesPage }: CardProps): JSX.Element 
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active ' : ''}`} type="button">
+          <button onClick={() => changeFavoriteStatus(offer.id, !offer.isFavorite)} className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active ' : ''}`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -51,5 +61,5 @@ function Card({ offer, onMouseEnter, isFavoritesPage }: CardProps): JSX.Element 
 
   );
 }
-
-export default Card;
+export { Card };
+export default connector(Card);

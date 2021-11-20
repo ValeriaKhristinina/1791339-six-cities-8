@@ -8,6 +8,7 @@ export type AppData = {
   comments: Reviews,
   isDataLoaded: boolean,
   nearbyOffers: Offers,
+  favoritesOffers: Offers,
 }
 
 export type CityProcess = {

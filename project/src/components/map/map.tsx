@@ -45,7 +45,7 @@ function Map({ setAdditionalClass, mapCenter, points, selectedOffer }: MapProps)
           lat: point.location.latitude,
           lng: point.location.longitude,
         }, {
-          icon: (selectedOffer !== undefined && point.title === selectedOffer.title)
+          icon: (selectedOffer !== undefined && point.id === selectedOffer.id)
             ? activeCustomIcon
             : defaultCustomIcon,
         });

@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 function CommentForm(): JSX.Element {
-  const [rating, setRating] = useState('0');
+  const [, setRating] = useState('0');
   const [comment, setComment] = useState('');
 
   return (
@@ -44,7 +43,7 @@ function CommentForm(): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button onClick={() => { console.log('rating', rating); console.log('comment', comment); }} className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit">Submit</button>
       </div>
     </form>
   );

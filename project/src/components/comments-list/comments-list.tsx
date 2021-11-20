@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import Review from '../review/review';
 import { ReviewType } from '../../types/review';
 
@@ -12,7 +11,7 @@ function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
       {
         reviews.map(
           (review) => (
-            <Review commentReview={review} />
+            <Review commentReview={review} key={review.id} />
           ))
       }
 

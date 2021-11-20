@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { FormEvent, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { loginAction } from '../../store/api-actions';
@@ -44,23 +43,25 @@ function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }):
             onSubmit={handleSubmit}
           >
             <div className="login__input-wrapper form__input-wrapper">
-              <label className="visually-hidden">E-mail</label>
+              <label htmlFor="email" className="visually-hidden">E-mail</label>
               <input
                 ref={loginRef}
                 className="login__input form__input"
                 type="email"
                 name="email"
+                id="email"
                 placeholder="Email"
                 required
               />
             </div>
             <div className="login__input-wrapper form__input-wrapper">
-              <label className="visually-hidden">Password</label>
+              <label htmlFor="password" className="visually-hidden">Password</label>
               <input
                 ref={passwordRef}
                 className="login__input form__input"
                 type="password"
                 name="password"
+                id="password"
                 placeholder="Password"
                 required
               />
@@ -75,7 +76,7 @@ function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }):
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
+            <a className="locations__item-link" href="/">
               <span>Amsterdam</span>
             </a>
           </div>

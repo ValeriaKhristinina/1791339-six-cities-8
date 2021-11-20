@@ -5,6 +5,7 @@ const initialState: AppData = {
   offers: [],
   comments: [],
   isDataLoaded: false,
+  nearbyOffers: [],
 };
 
 const appData = (state = initialState, action: Actions): AppData => {
@@ -20,6 +21,12 @@ const appData = (state = initialState, action: Actions): AppData => {
       return {
         ...state,
         comments: action.payload,
+      };
+    }
+    case ActionType.AddNearbyOffers: {
+      return {
+        ...state,
+        nearbyOffers: action.payload,
       };
     }
     default:

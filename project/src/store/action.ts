@@ -18,8 +18,8 @@ export const addComments = (comments: ReviewType[]) => ({
   payload: comments,
 } as const);
 
-export const requireAuthorisation = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireAutorisation,
+export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.RequireAuthorization,
   payload: authStatus,
 } as const);
 
@@ -30,4 +30,9 @@ export const requireLogout = () => ({
 export const getEmail = (email: string) => ({
   type: ActionType.GetEmail,
   payload: email,
+} as const);
+
+export const addNearbyOffers = (nearbyOffers: Offers) => ({
+  type: ActionType.AddNearbyOffers,
+  payload: nearbyOffers,
 } as const);

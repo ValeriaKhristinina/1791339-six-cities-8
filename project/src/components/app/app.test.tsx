@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import { makeFakeOffer, makeStore } from '../../utils/mocks';
+import { makeStore } from '../../utils/mocks';
 import { AppRoute } from '../../const';
 
 import App from './app';

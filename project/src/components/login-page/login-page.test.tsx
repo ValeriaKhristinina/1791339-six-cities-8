@@ -3,7 +3,6 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
-import userEvent from '@testing-library/user-event';
 import LoginPage from './login-page';
 
 const mockStore = configureMockStore();

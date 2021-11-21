@@ -1,6 +1,9 @@
 import {address, lorem, commerce, name, internet, image, datatype} from 'faker';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import thunk from 'redux-thunk';
 import {City, Offer} from '../types/offer';
 import { ReviewType } from '../types/review';
+import { AuthorizationStatus } from '../const';
 
 const getRandomRaiting = () => (Math.floor(Math.random() * 5) + 1);
 
@@ -63,3 +66,27 @@ export const makeFakeCity = (): City => ({
   },
   name: address.cityName(),
 });
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const fakeOffers = new Array(5).fill(null).map(() => makeFakeOffer());
+const fakeComments = new Array(5).fill(null).map(() => makeFakeComment());
+const fakeEmail = makeFakeEmail();
+
+export const makeStore = () => mockStore({
+  DATA: {
+    offers: fakeOffers,
+    favoritesOffers: fakeOffers,
+    comments: fakeComments,
+    isDataLoaded: true,
+    nearbyOffers: fakeOffers,
+  },
+  USER: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    userEmail: fakeEmail,
+  },
+  CITY: {
+    city: 'Paris',
+  },
+});
+

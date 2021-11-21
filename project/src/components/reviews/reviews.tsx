@@ -1,12 +1,13 @@
 import CommentForm from '../comment-form/comment-form';
-import { ReviewType } from '../../types/review';
+import { CommentPost, ReviewType } from '../../types/review';
 import Review from '../review/review';
 
 type ReviewsProps = {
   reviews: ReviewType[];
+  onCommentFormSubmit: (comment: CommentPost) => void;
 }
 
-function Reviews({ reviews }: ReviewsProps): JSX.Element {
+function Reviews({ reviews, onCommentFormSubmit }: ReviewsProps): JSX.Element {
   const reviewsCount = reviews.length;
   return (
     <section className="property__reviews reviews">
@@ -21,7 +22,7 @@ function Reviews({ reviews }: ReviewsProps): JSX.Element {
         }
 
       </ul>
-      <CommentForm />
+      <CommentForm onCommentFormSubmit={onCommentFormSubmit} />
     </section>
   );
 }

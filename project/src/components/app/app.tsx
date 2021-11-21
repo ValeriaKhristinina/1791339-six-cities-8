@@ -9,12 +9,11 @@ import LoginPage from '../login-page/login-page';
 import ErrorPage from '../error-page/error-page';
 import { State } from '../../types/state';
 import LoadingPage from '../loading-page/loading-page';
-import { getFavoritesOffers, getLoadedDataStatus } from '../../store/app-data/selectors';
+import { getLoadedDataStatus } from '../../store/app-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 const mapStateToProps = (state: State) => ({
-  favoritesOffers: getFavoritesOffers(state),
   authorizationStatus: getAuthorizationStatus(state),
   isDataLoaded: getLoadedDataStatus(state),
 });

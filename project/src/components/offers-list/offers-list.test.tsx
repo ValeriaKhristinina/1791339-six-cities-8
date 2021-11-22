@@ -1,5 +1,4 @@
 import { Provider } from 'react-redux';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';

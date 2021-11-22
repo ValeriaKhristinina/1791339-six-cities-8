@@ -3,7 +3,6 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
 import { makeStore, makeFakeOffer } from '../../utils/mocks';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import React from 'react';
 import { Provider } from 'react-redux';
 

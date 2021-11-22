@@ -10,10 +10,9 @@ import {State} from '../types/state';
 import {addComments, addNearbyOffers, addOffers, getUser, requireAuthorization, requireLogout} from './action';
 import {makeFakeComment, makeFakeOffer, makeFakeUser} from '../utils/mocks';
 import {adaptCommentsToServer, adaptOfferToServer} from '../services/adapters';
-import { AuthData } from '../types/auth-data';
 const fakeUser = makeFakeUser() ;
 const {avatarUrl, isPro, ...userResponse} = fakeUser;
-const serverUser =  {...userResponse, avatar_url: avatarUrl, is_pro:isPro};
+const serverUser =  {...userResponse, 'avatar_url': avatarUrl, 'is_pro':isPro};
 describe('Async actions', () => {
   const onFakeUnauthorized = jest.fn();
   const api = createAPI(onFakeUnauthorized());

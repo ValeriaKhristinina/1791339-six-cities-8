@@ -85,3 +85,10 @@ export const DEFAULT_CITY = CITIES[0].name;
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
+
+export enum SORT {
+  Popular = 'Popular',
+  Rating = 'Rating',
+  PriceLowToHigh = 'Price: low to hight',
+  PriceHighToLow = 'Price: hight to low',
+}

@@ -5,7 +5,7 @@ import {
 import {
   AxiosInstance
 } from 'axios';
-import {changeCity , addOffers, requireAuthorization, requireLogout, getUser, addComments, addNearbyOffers, addFavoritesOffers, updateOfferFavoriteStatus} from '../store/action';
+import {changeCity , addOffers, requireAuthorization, requireLogout, getUser, addComments, addNearbyOffers, addFavoritesOffers, updateOfferFavoriteStatus, sortOffersBy} from '../store/action';
 import { State } from './state';
 
 
@@ -16,6 +16,7 @@ export enum ActionType {
   AddNearbyOffers = 'data/addNearbyOffers',
   AddFavoritesOffers = 'data/addFavoritesOffers',
   UpdateOfferFavoriteStatus = 'data/updateOfferFavoriteStatus',
+  SortOffersBy = 'data/sortOffersBy',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   GetUser = 'user/getUser',
@@ -28,6 +29,7 @@ export type Actions =
   | ReturnType<typeof addNearbyOffers>
   | ReturnType<typeof addFavoritesOffers>
   | ReturnType<typeof updateOfferFavoriteStatus>
+  | ReturnType<typeof sortOffersBy>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
   | ReturnType<typeof getUser>;

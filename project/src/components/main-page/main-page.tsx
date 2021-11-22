@@ -8,17 +8,18 @@ import OffersList from '../offers-list/offers-list';
 import { Offer } from '../../types/offer';
 import { Actions } from '../../types/action';
 import Map from '../map/map';
-import { CITIES, findMapCenter } from '../../const';
+import { CITIES, findMapCenter, SORT } from '../../const';
 import CityList from '../city-list/city-list';
 import { State } from '../../types/state';
-import { changeCity } from '../../store/action';
+import { changeCity, sortOffersBy } from '../../store/action';
 import UserNavigation from '../user-navigation/user-navigation';
 import { getCity } from '../../store/city-process/selectors';
-import { getFilteredByCityOffers } from '../../store/app-data/selectors';
+import { getFilteredByCityOffers, getSortBy } from '../../store/app-data/selectors';
 
 const mapStateToProps = (state: State) => ({
   city: getCity(state),
   offers: getFilteredByCityOffers(state),
+  sortBy: getSortBy(state),
 });
 
 
@@ -26,13 +27,27 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
   onChangeCity(city: string) {
     dispatch(changeCity(city));
   },
+  sortOffers: (sortBy: SORT) => dispatch(sortOffersBy(sortBy)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function MainPage({ offers, city, onChangeCity }: PropsFromRedux): JSX.Element {
+const sortingList = [SORT.Popular, SORT.PriceLowToHigh, SORT.PriceHighToLow, SORT.Rating];
+
+function MainPage({ offers, city, onChangeCity, sortOffers, sortBy }: PropsFromRedux): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
+  const [anchor, setAnchor] = useState(false);
+
+  const handleClick = () => {
+    if (!anchor) {
+      setAnchor(true);
+    } else {
+      setAnchor(false);
+    }
+    return anchor;
+  };
+
 
   const onCardHover = (offerId: number) => {
     const currentOffer = offers.find((offer) =>
@@ -63,20 +78,25 @@ function MainPage({ offers, city, onChangeCity }: PropsFromRedux): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.length} places to stay in {city}</b>
-                <form className="places__sorting" action="#" method="get">
-                  <span className="places__sorting-caption">Sort by</span>
+                <form onClick={handleClick} className="places__sorting" action="#" method="get">
+                  <span className="places__sorting-caption">Sort by </span>
                   <span className="places__sorting-type" tabIndex={0}>
-                    Popular
+                    {sortBy}
                     <svg className="places__sorting-arrow" width="7" height="4">
                       <use xlinkHref="#icon-arrow-select"></use>
                     </svg>
                   </span>
                   {/* Add "open" list class "places__options--opened" */}
-                  <ul className="places__options places__options--custom">
-                    <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                    <li className="places__option" tabIndex={0}>Price: low to high</li>
-                    <li className="places__option" tabIndex={0}>Price: high to low</li>
-                    <li className="places__option" tabIndex={0}>Top rated first</li>
+                  <ul className={`places__options places__options--custom ${anchor ? 'places__options--opened' : ''}`}>
+                    {sortingList.map((sortingItem) => (
+                      <li
+                        key={sortingItem}
+                        className={`places__option ${sortingItem === sortBy ? 'places__option--active' : ''}`}
+                        tabIndex={0}
+                        onClick={() => sortOffers(sortingItem)}
+                      >
+                        {sortingItem}
+                      </li>))}
                   </ul>
                 </form>
                 <OffersList

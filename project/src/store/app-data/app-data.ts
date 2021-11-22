@@ -1,9 +1,11 @@
+import { SORT } from '../../const';
 import {ActionType, Actions} from '../../types/action';
 import { Offer } from '../../types/offer';
 import {AppData} from '../../types/state';
 
 const initialState: AppData = {
   offers: [],
+  sortBy: SORT.Popular,
   comments: [],
   isDataLoaded: false,
   nearbyOffers: [],
@@ -52,6 +54,12 @@ const appData = (state = initialState, action: Actions): AppData => {
         offers: state.offers.map(updateOffer),
         nearbyOffers: state.nearbyOffers.map(updateOffer),
         favoritesOffers: state.favoritesOffers.map(updateOffer),
+      };
+    }
+    case ActionType.SortOffersBy: {
+      return {
+        ...state,
+        sortBy: action.payload,
       };
     }
     default:

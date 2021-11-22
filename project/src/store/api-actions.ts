@@ -27,8 +27,7 @@ export const checkAuthAction = (): ThunkActionResult =>
       await api.get(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {
-      // eslint-disable-next-line no-console
-      console.log(AUTH_FAIL_MESSAGE);
+      throw AUTH_FAIL_MESSAGE;
     }
   };
 

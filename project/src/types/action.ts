@@ -5,7 +5,7 @@ import {
 import {
   AxiosInstance
 } from 'axios';
-import {changeCity , addOffers, requireAuthorization, requireLogout, getEmail, addComments, addNearbyOffers, addFavoritesOffers, updateOfferFavoriteStatus} from '../store/action';
+import {changeCity , addOffers, requireAuthorization, requireLogout, getUser, addComments, addNearbyOffers, addFavoritesOffers, updateOfferFavoriteStatus} from '../store/action';
 import { State } from './state';
 
 
@@ -18,7 +18,7 @@ export enum ActionType {
   UpdateOfferFavoriteStatus = 'data/updateOfferFavoriteStatus',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
-  GetEmail = 'user/getEmail',
+  GetUser = 'user/getUser',
 }
 
 export type Actions =
@@ -30,7 +30,7 @@ export type Actions =
   | ReturnType<typeof updateOfferFavoriteStatus>
   | ReturnType<typeof requireAuthorization>
   | ReturnType<typeof requireLogout>
-  | ReturnType<typeof getEmail>;
+  | ReturnType<typeof getUser>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

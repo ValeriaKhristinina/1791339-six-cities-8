@@ -1,11 +1,12 @@
 import {ThunkActionResult} from '../types/action';
 import { AuthData } from '../types/auth-data';
 import { APIRoute , AuthorizationStatus } from '../const';
-import { addComments, addFavoritesOffers, addNearbyOffers, addOffers, getEmail, requireAuthorization, requireLogout, updateOfferFavoriteStatus } from './action';
+import { addComments, addFavoritesOffers, addNearbyOffers, addOffers, getUser, requireAuthorization, requireLogout, updateOfferFavoriteStatus } from './action';
 import { dropToken, saveToken, Token } from '../services/token';
 import { CommentPost, ServerReviewType } from '../types/review';
-import {adaptCommentsToClient, adaptOfferToClient} from '../services/adapters';
+import {adaptCommentsToClient, adaptOfferToClient, adaptUserToClient} from '../services/adapters';
 import { ServerOffer } from '../types/server-offer';
+import { ServerUser } from '../types/user';
 
 const AUTH_FAIL_MESSAGE = 'Не забудьте авторизоваться';
 
@@ -24,8 +25,9 @@ export const fetchCommentsAction = (id: string): ThunkActionResult =>
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.get(APIRoute.Login);
+      const {data} = await api.get(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(getUser(adaptUserToClient(data)));
     } catch {
       throw AUTH_FAIL_MESSAGE;
     }
@@ -33,10 +35,11 @@ export const checkAuthAction = (): ThunkActionResult =>
 
 export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const response = await api.post<ServerUser>(APIRoute.Login, {email, password});
+    const data = response.data;
+    saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(getEmail(email));
+    dispatch(getUser(adaptUserToClient(data)));
   };
 
 

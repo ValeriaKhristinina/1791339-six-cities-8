@@ -4,7 +4,14 @@ import {UserProcess} from '../../types/state';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userEmail: '',
+  user: {
+    avatarUrl: '',
+    email: '',
+    id: 0,
+    isPro: false,
+    name: '',
+    token: '',
+  },
 };
 
 const userProcess = (state = initialState, action: Actions): UserProcess => {
@@ -19,13 +26,20 @@ const userProcess = (state = initialState, action: Actions): UserProcess => {
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.NoAuth,
-        userEmail: '',
+        user: {
+          avatarUrl: '',
+          email: '',
+          id: 0,
+          isPro: false,
+          name: '',
+          token: '',
+        },
       };
 
-    case ActionType.GetEmail:
+    case ActionType.GetUser:
       return {
         ...state,
-        userEmail: action.payload,
+        user: action.payload,
       };
 
     default:

@@ -5,7 +5,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { logoutAction } from '../../store/api-actions';
 import { ThunkAppDispatch } from '../../types/action';
 import { State } from '../../types/state';
-import { getAuthorizationStatus, getUserEmail } from '../../store/user-process/selectors';
+import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit() {
@@ -15,14 +15,15 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 
 const mapStateToProps = (state: State) => ({
   auth: getAuthorizationStatus(state),
-  email: getUserEmail(state),
+  user: getUser(state),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function UserNavigation({ auth, email, onSubmit }: PropsFromRedux): JSX.Element {
+function UserNavigation({ auth, user, onSubmit }: PropsFromRedux): JSX.Element {
+  const { email, avatarUrl } = user;
   return (
     <header className="header">
       <div className="container">
@@ -39,8 +40,9 @@ function UserNavigation({ auth, email, onSubmit }: PropsFromRedux): JSX.Element 
                   <li className="header__nav-item user">
                     <a className="header__nav-link header__nav-link--profile" href="#">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
+                        <img className="user__avatar" src={avatarUrl} alt="avatar" />
                       </div>
-                      <span className="header__user-name user__name">{email}</span>
+                      <Link to={AppRoute.Favorites} className="header__user-name user__name">{email}</Link>
                     </a>
                   </li>
                   <li className="header__nav-item">
@@ -53,8 +55,6 @@ function UserNavigation({ auth, email, onSubmit }: PropsFromRedux): JSX.Element 
               {(auth === AuthorizationStatus.NoAuth || auth === AuthorizationStatus.Unknown) && (
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
-                    {/* <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div> */}
                     <span className="header__login">Sign in</span>
                   </Link>
                 </li>

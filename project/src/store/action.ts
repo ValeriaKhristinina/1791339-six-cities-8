@@ -2,6 +2,7 @@ import {ActionType} from '../types/action';
 import { Offers } from '../types/offer';
 import { AuthorizationStatus } from '../const';
 import { ReviewType } from '../types/review';
+import {User} from '../types/user';
 
 export const changeCity = (city: string)  => ({
   type: ActionType.ChangeCity,
@@ -27,9 +28,9 @@ export const requireLogout = () => ({
   type: ActionType.RequireLogout,
 } as const);
 
-export const getEmail = (email: string) => ({
-  type: ActionType.GetEmail,
-  payload: email,
+export const getUser = (user: User) => ({
+  type: ActionType.GetUser,
+  payload: user,
 } as const);
 
 export const addNearbyOffers = (nearbyOffers: Offers) => ({

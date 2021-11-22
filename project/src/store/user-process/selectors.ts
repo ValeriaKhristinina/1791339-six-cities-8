@@ -1,7 +1,8 @@
 import {NameSpace} from '../root-reducer';
 import {State} from '../../types/state';
 import { AuthorizationStatus } from '../../const';
+import { User } from '../../types/user';
 
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
-export const getUserEmail = (state: State): string => state[NameSpace.user].userEmail;
+export const getUser = (state: State): User => state[NameSpace.user].user;
 

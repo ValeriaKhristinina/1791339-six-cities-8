@@ -1,6 +1,7 @@
 import {Offer} from '../types/offer';
 import { ReviewType, ServerReviewType } from '../types/review';
 import {ServerOffer} from '../types/server-offer';
+import { ServerUser, User } from '../types/user';
 
 export const adaptOfferToClient = (data: ServerOffer): Offer => ({
   bedrooms: data.bedrooms,
@@ -85,4 +86,14 @@ export const adaptCommentsToServer = (data: ReviewType): ServerReviewType => ({
     'is_pro': data.user.isPro,
     name: data.user.name,
   },
+});
+
+
+export const adaptUserToClient = (data: ServerUser): User => ({
+  avatarUrl: data['avatar_url'],
+  email: data.email,
+  id: data.id,
+  isPro: data.is_pro,
+  name: data.name,
+  token: data.token,
 });

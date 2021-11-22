@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import {City, Offer} from '../types/offer';
 import { ReviewType } from '../types/review';
 import { AuthorizationStatus } from '../const';
+import { User } from '../types/user';
 
 const getRandomRaiting = () => (Math.floor(Math.random() * 5) + 1);
 
@@ -56,7 +57,14 @@ export const makeFakeComment = (): ReviewType => ({
   },
 });
 
-export const makeFakeEmail = (): string => (internet.email());
+export const makeFakeUser = (): User => ({
+  avatarUrl: internet.avatar(),
+  email: internet.email(),
+  id: datatype.number(),
+  isPro: datatype.boolean(),
+  name: internet.userName(),
+  token: 'secret',
+});
 
 export const makeFakeCity = (): City => ({
   location: {
@@ -71,7 +79,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const fakeOffers = new Array(5).fill(null).map(() => makeFakeOffer());
 const fakeComments = new Array(5).fill(null).map(() => makeFakeComment());
-const fakeEmail = makeFakeEmail();
+const fakeUser = makeFakeUser();
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const makeStore = () => mockStore({
@@ -81,10 +89,11 @@ export const makeStore = () => mockStore({
     comments: fakeComments,
     isDataLoaded: true,
     nearbyOffers: fakeOffers,
+    sortBy: 'Popular',
   },
   USER: {
     authorizationStatus: AuthorizationStatus.Auth,
-    userEmail: fakeEmail,
+    user: fakeUser,
   },
   CITY: {
     city: 'Paris',

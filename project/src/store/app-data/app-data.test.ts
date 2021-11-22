@@ -9,7 +9,7 @@ const comments = new Array(3).fill(null).map(()=>(makeFakeComment()));
 describe('Reducer: appData', () => {
   it('without additional parameters should return initial state', () => {
     expect(appData(void 0, {type: 'UNKNOWN_ACTION'}))
-      .toEqual({offers: [], comments: [], isDataLoaded: false, nearbyOffers: [], favoritesOffers: []});
+      .toEqual({offers: [], comments: [], isDataLoaded: false, nearbyOffers: [], favoritesOffers: [], sortBy: 'Popular'});
   });
 
   it('should add offers in state', () => {

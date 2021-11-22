@@ -3,17 +3,16 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { makeFakeOffer } from '../../utils/mocks';
+import { makeFakeOffer, makeStore } from '../../utils/mocks';
 import OffersList from './offers-list';
 
 const history = createMemoryHistory();
 const fakeOffers = new Array(3).fill(null).map(() => makeFakeOffer());
-const mockStore = configureMockStore();
 
 describe('Component: OffersList', () => {
   it('should render correctly', () => {
     render(
-      <Provider store={mockStore()}>
+      <Provider store={makeStore()}>
         <Router history={history}>
           <OffersList
             offers={fakeOffers}

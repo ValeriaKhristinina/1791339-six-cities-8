@@ -60,6 +60,8 @@ export const getFilteredByCityOffers = (state: State): Offers => {
         }
         return 0;
       });
+    default:
+      return filteredOffers;
   }
 };
 export const getNearbyOffers = (state: State): Offers => state[NameSpace.data].nearbyOffers;

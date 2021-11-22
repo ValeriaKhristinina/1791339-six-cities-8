@@ -1,26 +1,42 @@
 import {userProcess} from './user-process';
 import {AuthorizationStatus} from '../../const';
-import {getEmail, requireAuthorization, requireLogout} from '../action';
-import {makeFakeEmail} from '../../utils/mocks';
+import {getUser, requireAuthorization, requireLogout} from '../action';
+import {makeFakeUser} from '../../utils/mocks';
 
-const fakeEmail = makeFakeEmail();
+const fakeUser = makeFakeUser();
 
 describe('Reducer: userProcess', () => {
-  it('sould change Authorization status on "AUTH"', () => {
-    const state = {authorizationStatus: AuthorizationStatus.Unknown, userEmail: ''};
-    expect(userProcess(state, requireAuthorization(AuthorizationStatus.Auth)))
-      .toEqual({authorizationStatus: AuthorizationStatus.Auth, userEmail: ''});
+  it('should change Authorization status on "AUTH"', () => {
+    const state = {authorizationStatus: AuthorizationStatus.Unknown, user: {
+      avatarUrl: '',
+      email: '',
+      id: 0,
+      isPro: false,
+      name: '',
+      token: '',
+    }};
+    expect(userProcess(state, requireAuthorization(AuthorizationStatus.Auth)).authorizationStatus)
+      .toEqual(AuthorizationStatus.Auth);
   });
 
-  it('sould change Authorization status on "NO_AUTH"', () => {
-    const state = {authorizationStatus: AuthorizationStatus.Auth, userEmail: fakeEmail};
+  it('should change Authorization status on "NO_AUTH"', () => {
+    const state = {authorizationStatus: AuthorizationStatus.Auth, user: fakeUser};
     expect(userProcess(state, requireLogout()))
-      .toEqual({authorizationStatus: AuthorizationStatus.NoAuth, userEmail: ''});
+      .toEqual({authorizationStatus: AuthorizationStatus.NoAuth, user: {
+        avatarUrl: '',
+        email: '',
+        id: 0,
+        isPro: false,
+        name: '',
+        token: '',
+      }});
   });
 
-  it('sould get user email', () => {
-    const state = {authorizationStatus: AuthorizationStatus.Auth, userEmail: ''};
-    expect(userProcess(state, getEmail(fakeEmail)))
-      .toEqual({authorizationStatus: AuthorizationStatus.Auth, userEmail: fakeEmail});
+  it('should get user info', () => {
+    const state = {authorizationStatus: AuthorizationStatus.Auth, user: {
+
+    }};
+    expect(userProcess(state, getUser(fakeUser)))
+      .toEqual({authorizationStatus: AuthorizationStatus.Auth, user: fakeUser});
   });
 });

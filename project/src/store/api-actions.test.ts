@@ -7,11 +7,13 @@ import {createAPI} from '../services/api';
 import {checkAuthAction, fetchOffersAction, fetchCommentsAction, fetchNearbyOffersAction, loginAction, logoutAction} from './api-actions';
 import {APIRoute, AuthorizationStatus} from '../const';
 import {State} from '../types/state';
-import {addComments, addNearbyOffers, addOffers, getEmail, requireAuthorization, requireLogout} from './action';
-import {makeFakeComment, makeFakeOffer} from '../utils/mocks';
+import {addComments, addNearbyOffers, addOffers, getUser, requireAuthorization, requireLogout} from './action';
+import {makeFakeComment, makeFakeOffer, makeFakeUser} from '../utils/mocks';
 import {adaptCommentsToServer, adaptOfferToServer} from '../services/adapters';
 import { AuthData } from '../types/auth-data';
-
+const fakeUser = makeFakeUser() ;
+const {avatarUrl, isPro, ...userResponse} = fakeUser;
+const serverUser =  {...userResponse, avatar_url: avatarUrl, is_pro:isPro};
 describe('Async actions', () => {
   const onFakeUnauthorized = jest.fn();
   const api = createAPI(onFakeUnauthorized());
@@ -28,31 +30,32 @@ describe('Async actions', () => {
     const store = mockStore();
     mockAPI
       .onGet(APIRoute.Login)
-      .reply(200, []);
+      .reply(200, serverUser);
 
-    expect(store.getActions()).toEqual([]);
 
     await store.dispatch(checkAuthAction());
 
     expect(store.getActions()).toEqual([
       requireAuthorization(AuthorizationStatus.Auth),
+      getUser(fakeUser),
     ]);
   });
 
   it('should dispatch RequriedAuthorization and RedirectToRoute when POST /login', async () => {
-    const fakeUser: AuthData = {login: 'test@test.ru', password: '123456'};
+
     mockAPI
       .onPost(APIRoute.Login)
-      .reply(200, {token: 'secret'});
+      // eslint-disable-next-line camelcase
+      .reply(200,serverUser);
 
     const store = mockStore();
     Storage.prototype.setItem = jest.fn();
 
-    await store.dispatch(loginAction(fakeUser));
+    await store.dispatch(loginAction({login: 'test@test.ru', password: '123456'}));
 
     expect(store.getActions()).toEqual([
       requireAuthorization(AuthorizationStatus.Auth),
-      getEmail(fakeUser.login),
+      getUser(fakeUser),
     ]);
 
     expect(Storage.prototype.setItem).toBeCalledTimes(1);

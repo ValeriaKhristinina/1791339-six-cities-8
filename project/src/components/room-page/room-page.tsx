@@ -6,10 +6,11 @@ import OffersList from '../offers-list/offers-list';
 import { findMapCenter } from '../../const';
 import UserNavigation from '../user-navigation/user-navigation';
 import { connect, ConnectedProps } from 'react-redux';
-import { fetchCommentsAction, fetchNearbyOffersAction } from '../../store/api-actions';
+import { changeFavoriteStatusAction, fetchCommentsAction, fetchNearbyOffersAction, postComment } from '../../store/api-actions';
 import { getComments, getNearbyOffers, getOfferById } from '../../store/app-data/selectors';
 import { State } from '../../types/state';
 import Reviews from '../reviews/reviews';
+import { CommentPost } from '../../types/review';
 
 const mapStateToProps = (state: State, ownProps: RoomPageProps) => ({
   comments: getComments(state),
@@ -25,13 +26,15 @@ type RoomPageProps = {
 const mapDispatchToProps = {
   fetchComment: (id: string) => fetchCommentsAction(id),
   fetchNearbyOffers: (id: string) => fetchNearbyOffersAction(id),
+  changeFavoriteStatus: (id: number, isFavorite: boolean) => changeFavoriteStatusAction(id, isFavorite),
+  onCommentFormSubmit: (id: string, comment: CommentPost) => postComment(id, comment),
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchNearbyOffers }: PropsFromRedux & RoomPageProps): JSX.Element {
+function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchNearbyOffers, changeFavoriteStatus, onCommentFormSubmit }: PropsFromRedux & RoomPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
 
   useEffect(() => {
@@ -52,13 +55,13 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
   if (!offer) {
     return <div></div>;
   }
-  const { images, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = offer;
+  const { images, rating, type, bedrooms, maxAdults, price, goods, host, description, city, isFavorite } = offer;
 
   return (
     <div className="page">
       <UserNavigation />
       <main className="page__main page__main--property">
-        <section className="property">
+        <section className="property" data-testid="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {images.map((image: string | undefined) => (
@@ -78,7 +81,7 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
                 <h1 className="property__name">
                   {offer?.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button onClick={() => changeFavoriteStatus(offer.id, !offer.isFavorite)} className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -138,7 +141,7 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
                   </p>
                 </div>
               </div>
-              <Reviews reviews={comments} />
+              <Reviews reviews={comments} onCommentFormSubmit={(comment: CommentPost) => onCommentFormSubmit(offerId, comment)} />
             </div>
           </div>
           <Map
@@ -163,5 +166,5 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
   );
 }
 
-
+export { RoomPage };
 export default connector(RoomPage);

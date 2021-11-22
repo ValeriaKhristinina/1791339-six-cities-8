@@ -2,34 +2,13 @@ import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { makeFakeComment, makeFakeEmail, makeFakeOffer } from '../../utils/mocks';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import thunk from 'redux-thunk';
+import { makeStore } from '../../utils/mocks';
+import { AppRoute } from '../../const';
+
 import App from './app';
 
-const middlewares = [thunk];
 
-const mockStore = configureMockStore(middlewares);
-const fakeOffers = new Array(5).fill(null).map(() => makeFakeOffer());
-const fakeComments = new Array(5).fill(null).map(() => makeFakeComment());
-const fakeEmail = makeFakeEmail();
-
-const store = mockStore({
-  DATA: {
-    offers: fakeOffers,
-    comments: fakeComments,
-    isDataLoaded: true,
-    nearbyOffers: fakeOffers,
-  },
-  USER: {
-    authorizationStatus: AuthorizationStatus.Auth,
-    userEmail: fakeEmail,
-  },
-  CITY: {
-    city: 'Paris',
-  },
-});
+const store = makeStore();
 
 const history = createMemoryHistory();
 const fakeApp = (
@@ -65,7 +44,7 @@ describe('Application Routing', () => {
   });
 
   it('should render "RoomPage" when user navigate to "/offer/:id"', () => {
-    history.push(`/offer/${fakeOffers[0].id}`);
+    history.push(`/offer/${store.getState().DATA.offers[0].id}`);
     render(fakeApp);
 
     expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();

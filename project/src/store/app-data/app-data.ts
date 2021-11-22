@@ -1,4 +1,5 @@
 import {ActionType, Actions} from '../../types/action';
+import { Offer } from '../../types/offer';
 import {AppData} from '../../types/state';
 
 const initialState: AppData = {
@@ -6,6 +7,7 @@ const initialState: AppData = {
   comments: [],
   isDataLoaded: false,
   nearbyOffers: [],
+  favoritesOffers: [],
 };
 
 const appData = (state = initialState, action: Actions): AppData => {
@@ -27,6 +29,29 @@ const appData = (state = initialState, action: Actions): AppData => {
       return {
         ...state,
         nearbyOffers: action.payload,
+      };
+    }
+    case ActionType.AddFavoritesOffers: {
+      return {
+        ...state,
+        favoritesOffers: action.payload,
+      };
+    }
+    case ActionType.UpdateOfferFavoriteStatus: {
+      const updateOffer = (offer: Offer)=>{
+        if(offer.id === action.payload.offerId){
+          return {
+            ...offer,
+            isFavorite: action.payload.isFavorite,
+          };
+        }
+        return offer;
+      };
+      return {
+        ...state,
+        offers: state.offers.map(updateOffer),
+        nearbyOffers: state.nearbyOffers.map(updateOffer),
+        favoritesOffers: state.favoritesOffers.map(updateOffer),
       };
     }
     default:

@@ -1,10 +1,21 @@
-import { useState } from 'react';
-function CommentForm(): JSX.Element {
-  const [, setRating] = useState('0');
+import { FormEvent, useState } from 'react';
+import { CommentPost } from '../../types/review';
+
+type CommentFormProps = {
+  onCommentFormSubmit: (commnent: CommentPost) => void
+}
+
+function CommentForm({ onCommentFormSubmit }: CommentFormProps): JSX.Element {
+  const [rating, setRating] = useState('0');
   const [comment, setComment] = useState('');
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    onCommentFormSubmit({ comment, rating: Number(rating) });
+    setComment('');
+  };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleSubmit} className="reviews__form form" action="#" method="post" >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input onChange={(evt) => { setRating(evt.target.value); }} className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
@@ -45,7 +56,7 @@ function CommentForm(): JSX.Element {
         </p>
         <button className="reviews__submit form__submit button" type="submit">Submit</button>
       </div>
-    </form>
+    </form >
   );
 }
 

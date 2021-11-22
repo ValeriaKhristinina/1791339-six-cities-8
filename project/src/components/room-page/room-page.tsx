@@ -11,11 +11,13 @@ import { getComments, getNearbyOffers, getOfferById } from '../../store/app-data
 import { State } from '../../types/state';
 import Reviews from '../reviews/reviews';
 import { CommentPost } from '../../types/review';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 const mapStateToProps = (state: State, ownProps: RoomPageProps) => ({
   comments: getComments(state),
   nearbyOffers: getNearbyOffers(state),
   offer: getOfferById(state, ownProps.offerId),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 type RoomPageProps = {
@@ -34,7 +36,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 
-function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchNearbyOffers, changeFavoriteStatus, onCommentFormSubmit }: PropsFromRedux & RoomPageProps): JSX.Element {
+function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchNearbyOffers, changeFavoriteStatus, onCommentFormSubmit, authorizationStatus }: PropsFromRedux & RoomPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
 
   useEffect(() => {
@@ -141,7 +143,7 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
                   </p>
                 </div>
               </div>
-              <Reviews reviews={comments} onCommentFormSubmit={(comment: CommentPost) => onCommentFormSubmit(offerId, comment)} />
+              <Reviews reviews={comments} onCommentFormSubmit={(comment: CommentPost) => onCommentFormSubmit(offerId, comment)} authorizationStatus={authorizationStatus} />
             </div>
           </div>
           <Map

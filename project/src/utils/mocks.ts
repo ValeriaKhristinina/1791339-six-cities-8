@@ -77,7 +77,7 @@ export const makeFakeCity = (): City => ({
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const fakeOffers = new Array(5).fill(null).map(() => makeFakeOffer());
+export const fakeOffers = new Array(5).fill(null).map(() => makeFakeOffer());
 const fakeComments = new Array(5).fill(null).map(() => makeFakeComment());
 const fakeUser = makeFakeUser();
 

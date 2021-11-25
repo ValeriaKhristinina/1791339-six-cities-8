@@ -2,7 +2,7 @@ import {NameSpace} from '../root-reducer';
 import {State} from '../../types/state';
 import {Offers, Offer} from '../../types/offer';
 import { Reviews } from '../../types/review';
-import { SORT } from '../../const';
+import { Sorting } from '../../const';
 
 export const getOffers = (state: State): Offers => state[NameSpace.data].offers;
 export const getOfferById = (state: State, id: string): Offer | undefined => getOffers(state).find((offer: Offer) => offer.id.toString() === id);
@@ -29,11 +29,10 @@ export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.da
 export const getFilteredByCityOffers = (state: State): Offers => {
   const filteredOffers = state[NameSpace.data].offers.filter((offer) => offer.city.name === state[NameSpace.city].city);
   const sortBy = state[NameSpace.data].sortBy;
-  // eslint-disable-next-line no-console
   switch(sortBy) {
-    case SORT.Popular:
+    case Sorting.Popular:
       return filteredOffers;
-    case SORT.PriceHighToLow:
+    case Sorting.PriceHighToLow:
       return filteredOffers.sort((a,b) => {
         if(a.price > b.price) {
           return -1;
@@ -42,7 +41,7 @@ export const getFilteredByCityOffers = (state: State): Offers => {
         }
         return 0;
       });
-    case SORT.PriceLowToHigh:
+    case Sorting.PriceLowToHigh:
       return filteredOffers.sort((a,b) => {
         if(a.price > b.price) {
           return 1;
@@ -51,7 +50,7 @@ export const getFilteredByCityOffers = (state: State): Offers => {
         }
         return 0;
       });
-    case SORT.Rating:
+    case Sorting.Rating:
       return filteredOffers.sort((a,b) => {
         if(a.rating > b.rating) {
           return -1;
@@ -65,4 +64,4 @@ export const getFilteredByCityOffers = (state: State): Offers => {
   }
 };
 export const getNearbyOffers = (state: State): Offers => state[NameSpace.data].nearbyOffers;
-export const getSortBy = (state: State): SORT => state[NameSpace.data].sortBy;
+export const getSortBy = (state: State): Sorting => state[NameSpace.data].sortBy;

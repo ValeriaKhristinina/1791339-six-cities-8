@@ -1,2 +1,8 @@
 @import './error-page.css';
 @import './loading-page.css';
+
+.tabs__item,
+.header__nav-link {
+  border: none;
+  background-color: inherit;
+}

@@ -1,11 +1,11 @@
-import { SORT } from '../../const';
+import { Sorting } from '../../const';
 import {ActionType, Actions} from '../../types/action';
 import { Offer } from '../../types/offer';
 import {AppData} from '../../types/state';
 
 const initialState: AppData = {
   offers: [],
-  sortBy: SORT.Popular,
+  sortBy: Sorting.Popular,
   comments: [],
   isDataLoaded: false,
   nearbyOffers: [],

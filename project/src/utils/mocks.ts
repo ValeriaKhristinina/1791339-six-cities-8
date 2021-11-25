@@ -81,7 +81,6 @@ export const fakeOffers = new Array(5).fill(null).map(() => makeFakeOffer());
 const fakeComments = new Array(5).fill(null).map(() => makeFakeComment());
 const fakeUser = makeFakeUser();
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const makeStore = () => mockStore({
   DATA: {
     offers: fakeOffers,

@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
-import { URL_MARKER_DEFAULT, URL_MARKER_ACTIVE } from '../../const';
+import { MARKERS_SRC } from '../../const';
 import { Offers, Offer, City } from '../../types/offer';
+
 
 type MapProps = {
   mapCenter: City | undefined;
@@ -15,31 +13,25 @@ type MapProps = {
   setAdditionalClass: string;
 }
 
+const defaultCustomIcon = leaflet.icon({
+  iconUrl: MARKERS_SRC.urlMarkeDefault,
+  iconSize: [30, 40],
+  iconAnchor: [20, 40],
+});
+
+const activeCustomIcon = leaflet.icon({
+  iconUrl: MARKERS_SRC.urlMarkerActive,
+  iconSize: [30, 40],
+  iconAnchor: [20, 40],
+});
+
 function Map({ setAdditionalClass, mapCenter, points, selectedOffer }: MapProps): JSX.Element {
-  const [markers, setMarkers] = useState<any[]>([]);
+  // const [markers, setMarkers] = useState<Marker[]>([]);
   const mapRef = useRef(null);
-  const map = useMap(mapRef, mapCenter);
-
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [30, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const activeCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_ACTIVE,
-    iconSize: [30, 40],
-    iconAnchor: [20, 40],
-  });
+  const { map, markersLayer } = useMap(mapRef, mapCenter);
 
   useEffect(() => {
-    if (map) {
-      markers.forEach((marker: any) => {
-        marker.remove();
-      });
-      setMarkers([]);
-
-      const arrMarkers: any = [];
+    if (map && markersLayer) {
       points.forEach((point) => {
         const marker = leaflet.marker({
           lat: point.location.latitude,
@@ -49,12 +41,11 @@ function Map({ setAdditionalClass, mapCenter, points, selectedOffer }: MapProps)
             ? activeCustomIcon
             : defaultCustomIcon,
         });
-        arrMarkers.push(marker);
-        marker.addTo(map);
+
+        markersLayer?.addLayer(marker);
       });
-      setMarkers(arrMarkers);
     }
-  }, [map, points, selectedOffer]);
+  }, [map, points, markersLayer, selectedOffer]);
 
   return (
     <section

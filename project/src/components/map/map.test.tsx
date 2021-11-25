@@ -15,7 +15,7 @@ describe('Component: Map', () => {
     render(
       <Provider store={makeStore()}>
         <Router history={history}>
-          <Map mapCenter={fakeCity} points={fakeOffers} setAdditionalClass={'additionalClass'} />
+          <Map mapCenter={fakeCity} points={fakeOffers} setAdditionalClass={additionalClass} />
         </Router>
       </Provider>,
     );

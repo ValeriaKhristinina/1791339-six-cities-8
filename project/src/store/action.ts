@@ -1,6 +1,6 @@
 import {ActionType} from '../types/action';
 import { Offers } from '../types/offer';
-import { AuthorizationStatus, SORT } from '../const';
+import { AuthorizationStatus, Sorting } from '../const';
 import { ReviewType } from '../types/review';
 import {User} from '../types/user';
 
@@ -48,7 +48,7 @@ export const updateOfferFavoriteStatus = (offerId: number, isFavorite: boolean) 
   payload: {offerId, isFavorite},
 } as const);
 
-export const sortOffersBy = (sortBy: SORT ) => ({
+export const sortOffersBy = (sortBy: Sorting ) => ({
   type: ActionType.SortOffersBy,
   payload: sortBy,
 } as const);

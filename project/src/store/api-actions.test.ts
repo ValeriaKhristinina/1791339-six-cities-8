@@ -44,7 +44,6 @@ describe('Async actions', () => {
 
     mockAPI
       .onPost(APIRoute.Login)
-      // eslint-disable-next-line camelcase
       .reply(200,serverUser);
 
     const store = mockStore();

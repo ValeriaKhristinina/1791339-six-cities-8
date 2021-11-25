@@ -18,7 +18,6 @@ function Reviews({ reviews, onCommentFormSubmit, authorizationStatus }: ReviewsP
         {
           reviews.map(
             (review) => (
-              // eslint-disable-next-line react/jsx-key
               <Review commentReview={review} key={review.id} />
             ))
         }

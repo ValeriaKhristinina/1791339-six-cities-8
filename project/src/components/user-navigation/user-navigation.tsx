@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
@@ -38,17 +37,17 @@ function UserNavigation({ auth, user, onSubmit }: PropsFromRedux): JSX.Element {
               {auth === AuthorizationStatus.Auth && (
                 <>
                   <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
+                    <button className="header__nav-link header__nav-link--profile">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                         <img className="user__avatar" src={avatarUrl} alt="avatar" />
                       </div>
                       <Link to={AppRoute.Favorites} className="header__user-name user__name">{email}</Link>
-                    </a>
+                    </button>
                   </li>
                   <li className="header__nav-item">
-                    <a onClick={onSubmit} className="header__nav-link" href="#">
+                    <button onClick={onSubmit} className="header__nav-link">
                       <span className="header__signout">Sign out</span>
-                    </a>
+                    </button>
                   </li>
                 </>
               )}

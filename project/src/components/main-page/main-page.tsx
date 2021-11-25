@@ -1,14 +1,12 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import OffersList from '../offers-list/offers-list';
 import { Offer } from '../../types/offer';
 import { Actions } from '../../types/action';
 import Map from '../map/map';
-import { CITIES, findMapCenter, SORT } from '../../const';
+import { CITIES, findMapCenter, Sorting, SORTING_LIST } from '../../const';
 import CityList from '../city-list/city-list';
 import { State } from '../../types/state';
 import { changeCity, sortOffersBy } from '../../store/action';
@@ -27,13 +25,11 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
   onChangeCity(city: string) {
     dispatch(changeCity(city));
   },
-  sortOffers: (sortBy: SORT) => dispatch(sortOffersBy(sortBy)),
+  sortOffers: (sortBy: Sorting) => dispatch(sortOffersBy(sortBy)),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-
-const sortingList = [SORT.Popular, SORT.PriceLowToHigh, SORT.PriceHighToLow, SORT.Rating];
 
 function MainPage({ offers, city, onChangeCity, sortOffers, sortBy }: PropsFromRedux): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
@@ -81,21 +77,20 @@ function MainPage({ offers, city, onChangeCity, sortOffers, sortBy }: PropsFromR
                 <form onClick={handleClick} className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by </span>
                   <span className="places__sorting-type" tabIndex={0}>
-                    {sortBy}
+                    {SORTING_LIST.find((item) => item.value === sortBy)?.title}
                     <svg className="places__sorting-arrow" width="7" height="4">
                       <use xlinkHref="#icon-arrow-select"></use>
                     </svg>
                   </span>
-                  {/* Add "open" list class "places__options--opened" */}
                   <ul className={`places__options places__options--custom ${anchor ? 'places__options--opened' : ''}`}>
-                    {sortingList.map((sortingItem) => (
+                    {SORTING_LIST.map((sortingItem) => (
                       <li
-                        key={sortingItem}
-                        className={`places__option ${sortingItem === sortBy ? 'places__option--active' : ''}`}
+                        key={sortingItem.value}
+                        className={`places__option ${sortingItem.value === sortBy ? 'places__option--active' : ''}`}
                         tabIndex={0}
-                        onClick={() => sortOffers(sortingItem)}
+                        onClick={() => sortOffers(sortingItem.value)}
                       >
-                        {sortingItem}
+                        {sortingItem.title}
                       </li>))}
                   </ul>
                 </form>

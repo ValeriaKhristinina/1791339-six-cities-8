@@ -77,18 +77,33 @@ export const CITIES: City[] = [
 
 export const findMapCenter = (cityName: string): City | undefined => CITIES.find((city) => city.name === cityName);
 
-export const URL_MARKER_DEFAULT = '/img/pin.svg';
-
-export const URL_MARKER_ACTIVE = '/img/pin-active.svg';
+export const MARKERS_SRC = {
+  urlMarkeDefault: '/img/pin.svg',
+  urlMarkerActive: '/img/pin-active.svg',
+};
 
 export const DEFAULT_CITY = CITIES[0].name;
 
 export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
 
-export enum SORT {
-  Popular = 'Popular',
-  Rating = 'Rating',
-  PriceLowToHigh = 'Price: low to hight',
-  PriceHighToLow = 'Price: hight to low',
+export enum Sorting {
+  Popular = 'POPULAR',
+  Rating = 'RATING',
+  PriceLowToHigh = 'PRICE_LOW_TO_HIGH',
+  PriceHighToLow = 'PRICE_HIGHT_TO_LOW',
 }
+
+export const SORTING_LIST = [{
+  value: Sorting.Popular,
+  title: 'Popular',
+}, {
+  value: Sorting.PriceLowToHigh,
+  title: 'Price: low to hight',
+}, {
+  value: Sorting.PriceHighToLow,
+  title: 'Price: hight to low',
+}, {
+  value: Sorting.Rating,
+  title: 'Rating',
+}];

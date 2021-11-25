@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { City } from '../../types/offer';
 
@@ -15,9 +14,9 @@ function CityList({ cityList, selectedCity, setSelectedCity }: CityListProps): J
       {
         cityList.map((city) => (
           <li className="locations__item" key={city.name}>
-            <a onClick={() => { setSelectedCity(city.name); }} className={`locations__item-link tabs__item ${selectedCity === city.name ? 'tabs__item--active' : ''}`} href="#">
+            <button onClick={() => { setSelectedCity(city.name); }} className={`locations__item-link tabs__item ${selectedCity === city.name ? 'tabs__item--active' : ''}`}>
               <span>{city.name}</span>
-            </a>
+            </button>
           </li>
         ))
       }

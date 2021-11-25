@@ -1,6 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect } from 'react';
 import { ConnectedProps, connect } from 'react-redux';
+import { AppRoute } from '../../const';
 import { fetchFavoritesOffersAction } from '../../store/api-actions';
 import { getFavoritesOffersByCity } from '../../store/app-data/selectors';
 import { State } from '../../types/state';
@@ -35,7 +35,7 @@ function FavoritesPage({ favoritesOffersByCity, fetchFavoritesOffers }: PropsFro
                 <li className="favorites__locations-items" key={item.city}>
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
-                      <a className="locations__item-link" href="#">
+                      <a className="locations__item-link" href={AppRoute.Root}>
                         <span>{item.city}</span>
                       </a>
                     </div>

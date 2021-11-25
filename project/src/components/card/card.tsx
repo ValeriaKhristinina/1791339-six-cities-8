@@ -34,7 +34,6 @@ function Card({ offer, onMouseEnter, authorizationStatus, isFavoritesPage, chang
   const clickHandler = () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       history.push(AppRoute.Login);
-      // return <Redirect to={AppRoute.Login} />;
     }
     return changeFavoriteStatus(offer.id, !offer.isFavorite);
   };

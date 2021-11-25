@@ -1,5 +1,5 @@
 import { Offers } from './offer';
-import {AuthorizationStatus, SORT} from '../const';
+import {AuthorizationStatus, Sorting} from '../const';
 import { RootState } from '../store/root-reducer';
 import { Reviews } from './review';
 import { User } from './user';
@@ -7,7 +7,7 @@ import { User } from './user';
 export type AppData = {
   offers: Offers,
   comments: Reviews,
-  sortBy: SORT
+  sortBy: Sorting
   isDataLoaded: boolean,
   nearbyOffers: Offers,
   favoritesOffers: Offers,

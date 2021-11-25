@@ -1,12 +1,18 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {useEffect, useState} from 'react';
-import leaflet from 'leaflet';
+import { useEffect, useState } from 'react';
+import leaflet, { Map, LayerGroup } from 'leaflet';
+import { City } from '../types/offer';
 
-function useMap(mapRef, mapCenter) {
-  const [map, setMap] = useState(null);
+type UseMap = {
+  map: Map | null,
+  markersLayer: LayerGroup | null
+}
+function useMap(mapRef: React.RefObject<HTMLElement | null>,
+  mapCenter: City | undefined): UseMap {
+  const [map, setMap] = useState<Map | null>(null);
+  const [markersLayer, setMarkersLayer] = useState<LayerGroup | null>(null);
 
   useEffect(() => {
-    if (mapRef.current !== null && map === null) {
+    if (mapRef.current !== null && map === null && mapCenter) {
       const instance = leaflet.map(mapRef.current, {
         center: {
           lat: mapCenter.location.latitude,
@@ -14,7 +20,8 @@ function useMap(mapRef, mapCenter) {
         },
         zoom: mapCenter.location.zoom,
       });
-
+      const markersGroup = leaflet.layerGroup([]);
+      markersGroup.addTo(instance);
       leaflet
         .tileLayer(
           'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -24,13 +31,14 @@ function useMap(mapRef, mapCenter) {
         )
         .addTo(instance);
 
+      setMarkersLayer(markersGroup);
       setMap(instance);
-    } else {
+    } else if (map && mapCenter) {
       map.panTo(new leaflet.LatLng(mapCenter.location.latitude, mapCenter.location.longitude));
     }
   }, [mapRef, map, mapCenter]);
 
-  return map;
+  return { map, markersLayer };
 }
 
 export default useMap;

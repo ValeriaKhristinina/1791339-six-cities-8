@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
-import { Provider } from 'react-redux';// import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
 import FavoritesPage from './favorites-page';
 import { AppRoute } from '../../const';
 import { makeStore } from '../../utils/mocks';

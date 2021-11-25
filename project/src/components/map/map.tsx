@@ -26,7 +26,6 @@ const activeCustomIcon = leaflet.icon({
 });
 
 function Map({ setAdditionalClass, mapCenter, points, selectedOffer }: MapProps): JSX.Element {
-  // const [markers, setMarkers] = useState<Marker[]>([]);
   const mapRef = useRef(null);
   const { map, markersLayer } = useMap(mapRef, mapCenter);
 

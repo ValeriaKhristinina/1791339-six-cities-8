@@ -14,6 +14,6 @@ describe('Hook: useMap', () => {
     const map = result.current;
 
     expect(map).not.toBe(null);
-    expect(map.getCenter().lat).toBe(CITIES[0].location.latitude);
+    expect(map.map?.getCenter().lat).toBe(CITIES[0].location.latitude);
   });
 });

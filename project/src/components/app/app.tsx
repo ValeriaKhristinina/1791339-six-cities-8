@@ -36,7 +36,7 @@ function App(props: PropsFromRedux): JSX.Element {
         <MainPage />
       </Route>
 
-      <Route render={({ history }) => <LoginPage onSubmitButtonClick={() => { history.push(AppRoute.Root); }} />} exact path={AppRoute.Login}></Route>
+      <Route render={({ history }) => <LoginPage onSubmitButtonClick={() => { history.goBack(); }} />} exact path={AppRoute.Login}></Route>
 
       <PrivateRoute
         exact

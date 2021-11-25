@@ -3,7 +3,7 @@ import { Offer } from '../../types/offer';
 import { widthRating } from '../../utils/utils';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
-import { findMapCenter } from '../../const';
+import { AppRoute, AuthorizationStatus, findMapCenter } from '../../const';
 import UserNavigation from '../user-navigation/user-navigation';
 import { connect, ConnectedProps } from 'react-redux';
 import { changeFavoriteStatusAction, fetchCommentsAction, fetchNearbyOffersAction, postComment } from '../../store/api-actions';
@@ -12,6 +12,7 @@ import { State } from '../../types/state';
 import Reviews from '../reviews/reviews';
 import { CommentPost } from '../../types/review';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { useHistory } from 'react-router-dom';
 
 const mapStateToProps = (state: State, ownProps: RoomPageProps) => ({
   comments: getComments(state),
@@ -38,7 +39,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchNearbyOffers, changeFavoriteStatus, onCommentFormSubmit, authorizationStatus }: PropsFromRedux & RoomPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>();
-
+  const history = useHistory();
   useEffect(() => {
     fetchComment(offerId);
     fetchNearbyOffers(offerId);
@@ -57,6 +58,12 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
   if (!offer) {
     return <div></div>;
   }
+  const clickHandler = () => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      history.push(AppRoute.Login);
+    }
+    return changeFavoriteStatus(offer.id, !offer.isFavorite);
+  };
   const { images, rating, type, bedrooms, maxAdults, price, goods, host, description, city, isFavorite } = offer;
 
   return (
@@ -83,7 +90,7 @@ function RoomPage({ offer, comments, offerId, nearbyOffers, fetchComment, fetchN
                 <h1 className="property__name">
                   {offer?.title}
                 </h1>
-                <button onClick={() => changeFavoriteStatus(offer.id, !offer.isFavorite)} className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
+                <button onClick={clickHandler} className={`property__bookmark-button button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

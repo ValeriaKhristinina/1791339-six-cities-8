@@ -107,3 +107,20 @@ export const SORTING_LIST = [{
   value: Sorting.Rating,
   title: 'Rating',
 }];
+
+export const PROPERTY_TYPE = [{
+  value: 'apartment',
+  title: 'Apartment',
+}, {
+  value: 'room',
+  title: 'Private Room',
+},
+{
+  value: 'house',
+  title: 'House',
+},
+{
+  value: 'hotel',
+  title: 'Hotel',
+},
+];

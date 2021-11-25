@@ -1,7 +1,7 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, PROPERTY_TYPE } from '../../const';
 import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Offer } from '../../types/offer';
@@ -71,7 +71,7 @@ function Card({ offer, onMouseEnter, authorizationStatus, isFavoritesPage, chang
         <h2 className="place-card__name">
           <Link to={cardPath}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{PROPERTY_TYPE.find((item) => item.value === type)?.title}</p>
       </div>
     </article>
 

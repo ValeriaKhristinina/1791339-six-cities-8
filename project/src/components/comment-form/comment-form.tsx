@@ -9,6 +9,7 @@ function CommentForm({ onCommentFormSubmit }: CommentFormProps): JSX.Element {
   const [rating, setRating] = useState('0');
   const [comment, setComment] = useState('');
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     onCommentFormSubmit({ comment, rating: Number(rating) });
     setComment('');
     setRating('0');

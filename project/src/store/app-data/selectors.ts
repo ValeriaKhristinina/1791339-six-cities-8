@@ -4,11 +4,11 @@ import {Offers, Offer} from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { Sorting } from '../../const';
 
-export const getOffers = (state: State): Offers => state[NameSpace.data].offers;
+export const getOffers = (state: State): Offers => state[NameSpace.Data].offers;
 export const getOfferById = (state: State, id: string): Offer | undefined => getOffers(state).find((offer: Offer) => offer.id.toString() === id);
-export const getComments = (state: State): Reviews => state[NameSpace.data].comments;
+export const getComments = (state: State): Reviews => state[NameSpace.Data].comments;
 export const getFavoritesOffersByCity = (state: State): Array<{city:string, offers:Offers}> => {
-  const favoriteOffers = state[NameSpace.data].favoritesOffers;
+  const favoriteOffers = state[NameSpace.Data].favoritesOffers;
   const cityMap: {
     [city: string]: Offers;
   } = {};
@@ -25,10 +25,10 @@ export const getFavoritesOffersByCity = (state: State): Array<{city:string, offe
   return Object.keys(cityMap).map((city) => ({city, offers:cityMap[city]}));
 
 };
-export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;
+export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.Data].isDataLoaded;
 export const getFilteredByCityOffers = (state: State): Offers => {
-  const filteredOffers = state[NameSpace.data].offers.filter((offer) => offer.city.name === state[NameSpace.city].city);
-  const sortBy = state[NameSpace.data].sortBy;
+  const filteredOffers = state[NameSpace.Data].offers.filter((offer) => offer.city.name === state[NameSpace.City].city);
+  const sortBy = state[NameSpace.Data].sortBy;
   switch(sortBy) {
     case Sorting.Popular:
       return filteredOffers;
@@ -63,5 +63,5 @@ export const getFilteredByCityOffers = (state: State): Offers => {
       return filteredOffers;
   }
 };
-export const getNearbyOffers = (state: State): Offers => state[NameSpace.data].nearbyOffers;
-export const getSortBy = (state: State): Sorting => state[NameSpace.data].sortBy;
+export const getNearbyOffers = (state: State): Offers => state[NameSpace.Data].nearbyOffers;
+export const getSortBy = (state: State): Sorting => state[NameSpace.Data].sortBy;

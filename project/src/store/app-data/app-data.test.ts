@@ -1,4 +1,4 @@
-import { addComments, addFavoritesOffers, addNearbyOffers, addOffers, updateOfferFavoriteStatus, SortOffersBy } from '../action';
+import { addComments, addFavoritesOffers, addNearbyOffers, addOffers, updateOfferFavoriteStatus } from '../action';
 import {appData} from './app-data';
 import {makeFakeComment, makeFakeOffer} from '../../utils/mocks';
 import { Sorting } from '../../const';

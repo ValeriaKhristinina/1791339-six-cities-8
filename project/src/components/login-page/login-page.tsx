@@ -1,5 +1,8 @@
 import { FormEvent, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { AppRoute, CITIES } from '../../const';
+import { changeCity } from '../../store/action';
 import { loginAction } from '../../store/api-actions';
 import { ThunkAppDispatch } from '../../types/action';
 import { AuthData } from '../../types/auth-data';
@@ -8,6 +11,9 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(authData: AuthData) {
     dispatch(loginAction(authData));
   },
+  onChangeCity(city: string) {
+    dispatch(changeCity(city));
+  },
 });
 
 const connector = connect(null, mapDispatchToProps);
@@ -15,7 +21,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }): JSX.Element {
 
-  const { onSubmit, onSubmitButtonClick } = props;
+  const { onSubmit, onSubmitButtonClick, onChangeCity } = props;
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -30,6 +36,8 @@ function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }):
     }
     onSubmitButtonClick();
   };
+
+  const randomCity = (CITIES[Math.floor(Math.random() * CITIES.length)]).name;
 
   return (
     <main className="page__main page__main--login">
@@ -76,9 +84,9 @@ function LoginPage(props: PropsFromRedux & { onSubmitButtonClick: () => void }):
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="/">
-              <span>Amsterdam</span>
-            </a>
+            <Link onClick={() => { onChangeCity(randomCity); }} className="locations__item-link" to={AppRoute.Root}>
+              <span>{randomCity}</span>
+            </Link>
           </div>
         </section>
       </div>
